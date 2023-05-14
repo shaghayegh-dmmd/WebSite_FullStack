@@ -50,17 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Models\Manager_Attachment.cs" />
     <Compile Include="Models\Manager_User.cs" />
-    <Compile Include="Models\EntityWeb.cs" />
+    <Compile Include="Models\WebEntity.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\User_Article.cs" />
     <Compile Include="Models\User_ContactUs.cs" />
     <Compile Include="Models\User_News.cs" />
     <Compile Include="Models\User_Resume.cs" />
     <Compile Include="Models\User_Tag.cs" />
-    <Compile Include="Models\User_TagArticle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

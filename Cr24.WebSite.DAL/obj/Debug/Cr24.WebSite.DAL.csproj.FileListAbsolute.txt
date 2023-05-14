@@ -1,0 +1,12 @@
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\bin\Debug\Cr24.WebSite.DAL.dll.config
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\bin\Debug\Cr24.WebSite.DAL.dll
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\bin\Debug\Cr24.WebSite.DAL.pdb
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\bin\Debug\EntityFramework.dll
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\bin\Debug\EntityFramework.xml
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\obj\Debug\Cr24.WebSite.DAL.csprojAssemblyReference.cache
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\obj\Debug\Cr24.WebSite.DAL.csproj.CoreCompileInputs.cache
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\obj\Debug\Cr24.WebSite.DAL.csproj.CopyComplete
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\obj\Debug\Cr24.WebSite.DAL.dll
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite.DAL\obj\Debug\Cr24.WebSite.DAL.pdb

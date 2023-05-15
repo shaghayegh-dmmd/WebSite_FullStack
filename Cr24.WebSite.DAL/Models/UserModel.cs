@@ -25,6 +25,7 @@ namespace Cr24.WebSite.DAL.Models
         [DataMember]
         public string Password { get; set; }
 
+        [DataMember]
         public bool? IsActive { get; set; }
 
         [DataMember]

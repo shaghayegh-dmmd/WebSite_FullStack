@@ -50,15 +50,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Manager_Attachment.cs" />
-    <Compile Include="Models\Manager_User.cs" />
-    <Compile Include="Models\WebEntity.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
-    <Compile Include="Models\User_Article.cs" />
-    <Compile Include="Models\User_ContactUs.cs" />
-    <Compile Include="Models\User_News.cs" />
-    <Compile Include="Models\User_Resume.cs" />
-    <Compile Include="Models\User_Tag.cs" />
+    <Compile Include="Models\ArticleModel.cs" />
+    <Compile Include="Models\AttachmentModel.cs" />
+    <Compile Include="Models\ContactUsModel.cs" />
+    <Compile Include="Models\NewsModel.cs" />
+    <Compile Include="Models\ResumeModel.cs" />
+    <Compile Include="Models\TagModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="WebEntity\Manager_Attachment.cs" />
+    <Compile Include="WebEntity\Manager_User.cs" />
+    <Compile Include="WebEntity\WebEntity.cs" />
+    <Compile Include="WebEntity\sysdiagram.cs" />
+    <Compile Include="WebEntity\User_Article.cs" />
+    <Compile Include="WebEntity\User_ContactUs.cs" />
+    <Compile Include="WebEntity\User_News.cs" />
+    <Compile Include="WebEntity\User_Resume.cs" />
+    <Compile Include="WebEntity\User_Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

@@ -55,14 +55,14 @@
     <Compile Include="WebSiteService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Cr24.WebSite.DAL\Cr24.WebSite.DAL.csproj">
       <Project>{e450ba2b-a629-4d55-b3bb-85b0787cd19b}</Project>
       <Name>Cr24.WebSite.DAL</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

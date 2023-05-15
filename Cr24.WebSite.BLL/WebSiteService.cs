@@ -23,7 +23,8 @@ namespace Cr24.WebSite.BLL
                     Title = fileData.Title,
                     ImageId = fileData.ImageId,
                     TagId = fileData.TagId,
-                    FileId = fileData.FileId
+                    FileId = fileData.FileId,
+                    Manager_Attachment = fileData.
 
                 };
 

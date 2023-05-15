@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 
 namespace Cr24.WebSite.DAL.Models
 {
+    [DataContract]
     public class ContactUsModel
     {
         [DataMember]

@@ -31,7 +31,5 @@ namespace Cr24.WebSite.DAL.Models
         [DataMember]
         public long? FileId { get; set; }
 
-        [DataMember]
-        public virtual Manager_Attachment Manager_Attachment { get; set; }
     }
 }

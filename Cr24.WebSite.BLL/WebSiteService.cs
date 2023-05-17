@@ -14,17 +14,27 @@ namespace Cr24.WebSite.BLL
         {
             try
             {
-                var newFile = new User_Article
+               
+                var newAtt = new Manager_Attachment
+                {
+                    FileContent = fileData.FileContent
+                };
+
+                using (var db = new WebEntity())
+                {
+                    db.Manager_Attachment.Add(newAtt);
+                    db.SaveChanges();
+                    
+                }
+               
+            var newFile = new User_Article
                 {
                     Category = fileData.Category,
                     CreationDate = DateTime.Now,
                     Description = fileData.Description,
                     Summary = fileData.Summary,
                     Title = fileData.Title,
-                    ImageId = fileData.ImageId,
-                    TagId = fileData.TagId,
-                    FileId = fileData.FileId,
-                    Manager_Attachment = fileData.
+                    FileId = newAtt.Id
 
                 };
 

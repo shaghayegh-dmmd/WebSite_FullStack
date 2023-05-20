@@ -18,30 +18,23 @@ namespace Cr24.WebSite.DAL.Models
        
         public string Description { get; set; }
 
-        [DataMember]
+     
         public DateTime? CreationDate { get; set; }
 
-        [DataMember]
+     
         public string Category { get; set; }
 
-        [DataMember]
+  
         public string Summary { get; set; }
 
-        [DataMember]
+        
         public string ImageId { get; set; }
 
-        [DataMember]
+       
         public long? FileId { get; set; }
 
-        [DataMember]
-        public string TagId { get; set; }
-
         
-        public byte[] FileContent { get; set; }
-
-       
-        public byte[] ImageContent { get; set; }
-
+        public string TagId { get; set; }
 
     }
 }

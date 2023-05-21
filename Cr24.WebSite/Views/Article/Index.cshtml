@@ -3,5 +3,12 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<section id="article" style="min-height: 800px">
+    <div class="fullwidth-section">
+        <div class="row" style="font-size: 16px;font-weight: bold;">
+            <div class="col-md-12">
+                عنوان مقاله  : @Html.Kendo().TextBox().Name("SearchTitle").Value((string)@ViewData["SearchTitle"]).HtmlAttributes(new { style = "width: 250px;" })
+                @(Html.Kendo().Button().Name("SearchButton").HtmlAttributes(new { type = "button" }).Icon("search"))
+            </div>
+        </div>
+</section>

@@ -53,6 +53,7 @@
     <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Models\AttachmentModel.cs" />
     <Compile Include="Models\ContactUsModel.cs" />
+    <Compile Include="Models\MenuModel.cs" />
     <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\ResumeModel.cs" />
     <Compile Include="Models\TagModel.cs" />

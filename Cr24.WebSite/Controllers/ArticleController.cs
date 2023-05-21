@@ -13,7 +13,11 @@ namespace Cr24.WebSite.Controllers
 {
     public class ArticleController: Controller
     {
-        public ActionResult Article()
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult ArticleDetailInfo()
         {
             return View();
         }

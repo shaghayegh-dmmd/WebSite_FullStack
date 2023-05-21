@@ -1,0 +1,2 @@
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite\obj\Debug\Cr24.WebSite.csprojAssemblyReference.cache
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite\obj\Debug\Cr24.WebSite.csproj.CoreCompileInputs.cache

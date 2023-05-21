@@ -7,10 +7,10 @@ using Cr24.WebSite.DAL.Models;
 
 namespace Cr24.WebSite.BLL
 {
-    class WebSiteService
+   public class WebSiteService
     {
         #region Article
-        public bool CreatArticle(ArticleModel fileData)
+        public static bool CreatArticle(ArticleModel fileData)
         {
             try
             {
@@ -51,7 +51,7 @@ namespace Cr24.WebSite.BLL
             }
         }
 
-        public bool EditeArticle(ArticleModel fileData)
+        public static bool EditeArticle(ArticleModel fileData)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Cr24.WebSite.BLL
             }
         }
 
-        public List<ArticleModel> GetAllFileContent()
+        public static List<ArticleModel> GetAllArticle()
         {
 
             using (var db = new WebEntity())
@@ -95,7 +95,7 @@ namespace Cr24.WebSite.BLL
             }
         }
 
-        public bool DeleteArticle(long id)
+        public static bool DeleteArticle(long id)
         {
             
             try

@@ -11,7 +11,7 @@ using Cr24.WebSite.DAL.Models;
 
 namespace Cr24.WebSite.Controllers
 {
-    public class MenuController : Controller
+    public class HomeController : Controller
     {
         public ActionResult Index()
         {

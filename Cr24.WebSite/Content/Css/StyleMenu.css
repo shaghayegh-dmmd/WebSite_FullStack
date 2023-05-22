@@ -1,4 +1,4 @@
-﻿@import url(fontiran.css); /* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
+﻿ /* لینک فایلی که وظیفه بارگذاری فونت ها را برعهده دارد */
 body {
     font-family: IRANSans !important;
     font-weight: 300;
@@ -173,7 +173,7 @@ header.main-headerS {
     font-size: 15px;
     line-height: 50px;
     text-align: center;
-    width: 200px;
+    width: 230px;
     padding: 0 15px;
     font-weight: 300;
     overflow: hidden;
@@ -205,7 +205,18 @@ header.main-headerS {
     color: #444;
     border-top: 1px solid #d2d6de;
 }
-
+.menuBar {
+    background-color: #3c8dbc;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    margin-bottom: 0;
+    margin-right: 230px;
+    border: none;
+    min-height: 50px;
+    border-radius: 0;
+}
 /*</style >*/
 @media only screen and (max-width:768px) {
   

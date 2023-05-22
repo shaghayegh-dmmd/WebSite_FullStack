@@ -15,17 +15,6 @@ namespace Cr24.WebSite.BLL
             try
             {
                
-                var newAtt = new Manager_Attachment
-                {
-                    FileContent = fileData.FileContent
-                };
-
-                using (var db = new WebEntity())
-                {
-                    db.Manager_Attachment.Add(newAtt);
-                    db.SaveChanges();
-                    
-                }
                
             var newFile = new User_Article
                 {
@@ -33,8 +22,7 @@ namespace Cr24.WebSite.BLL
                     CreationDate = DateTime.Now,
                     Description = fileData.Description,
                     Summary = fileData.Summary,
-                    Title = fileData.Title,
-                    FileId = newAtt.Id
+                    Title = fileData.Title
 
                 };
 
@@ -115,11 +103,12 @@ namespace Cr24.WebSite.BLL
 
         }
 
+
         #endregion
 
 
         #region Attachment
-        public bool CreatAttachment(AttachmentModel fileData)
+        public static bool CreatAttachment(AttachmentModel fileData)
         {
             try
             {

@@ -1,2 +1,10 @@
-﻿body {
+﻿@font-face {
+    font-family: Iransans;
+    src: url(../fonts/woff/IRANSansWeb.woff);
+}
+body{
+    font-family:Iransans!important;
+}
+html {
+    overflow:hidden;
 }

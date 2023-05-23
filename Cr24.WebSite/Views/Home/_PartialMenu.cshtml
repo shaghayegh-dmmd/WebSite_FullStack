@@ -10,7 +10,16 @@
     {
         <li>
             <a href="" data-ctl="@childMenu.ControlName" data-action="@childMenu.ActionName" data-id="@childMenu.Id">
+                @if (string.IsNullOrEmpty(childMenu.IconUrl))
+                {
+                    <i class="fa fa-circle"></i>
+                }
+                else
+                {
+                   
+                    <img class="menu-icon " style=" width:25px;" src="@childMenu.IconUrl" />
 
+                }
                 <span class="text-medium">
                     &nbsp;&nbsp;@childMenu.DisplayName
                 </span>

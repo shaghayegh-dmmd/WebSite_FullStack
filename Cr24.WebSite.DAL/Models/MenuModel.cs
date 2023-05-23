@@ -16,6 +16,7 @@ namespace Cr24.WebSite.DAL.Models
         public string DisplayName { get; set; }
         public string ActionName { get; set; }
         public string ControlName { get; set; }
+        public string IconUrl { get; set; }
         public int? ParentId { get; set; }
         public List<MenuModel> ChildList { get; set; }
     }

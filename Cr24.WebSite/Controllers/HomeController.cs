@@ -46,6 +46,7 @@ namespace Cr24.WebSite.Controllers
                     DisplayName = "مقاله ها",
                     ControlName = "Article",
                     ActionName = "Index",
+                    IconUrl = "/Content/Images/Vector.svg"
 
                 });
           
@@ -56,6 +57,7 @@ namespace Cr24.WebSite.Controllers
                     DisplayName = "فایل ها",
                     ControlName = "Attachment",
                     ActionName = "AttachmentIndex",
+                    IconUrl = "/Content/Images/upload.svg"
 
                 });
 
@@ -66,7 +68,7 @@ namespace Cr24.WebSite.Controllers
                     DisplayName = "اخبار",
                     ControlName = "News",
                     ActionName = "NewsIndex",
-
+                    IconUrl = "/Content/Images/newspaper.svg"
                 });
             
             return menuModel;

@@ -101,14 +101,16 @@ body {
 }
 
 
-.skin-blue .sidebar-menu > li > a {
+ .sidebar-menu > li > a {
     border-left: 3px solid transparent;
+    color: aliceblue!important;
 }
 
 .sidebar-menu > li {
     position: relative;
     margin: 0;
     padding: 0;
+    
 }
 
 

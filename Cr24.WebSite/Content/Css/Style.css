@@ -8,3 +8,7 @@ body{
 html {
     overflow:hidden;
 }
+img.menu-icon {
+    width: 18px;
+    height: 18px;
+}

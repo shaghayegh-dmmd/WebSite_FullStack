@@ -154,10 +154,13 @@
     <Content Include="Content\Images\microsoftexcel.png" />
     <Content Include="Content\Images\microsoftword.png" />
     <Content Include="Content\Images\multimedia.png" />
+    <Content Include="Content\Images\newspaper.svg" />
     <Content Include="Content\Images\PDF.png" />
     <Content Include="Content\Images\power.png" />
     <Content Include="Content\Images\rar-file-format.png" />
     <Content Include="Content\Images\Saman_Logo.png" />
+    <Content Include="Content\Images\upload.svg" />
+    <Content Include="Content\Images\Vector.svg" />
     <Content Include="Content\Images\voice-recorder.png" />
     <Content Include="Content\Images\دادگاه روزنامه رسمی.png" />
     <Content Include="Content\Images\دفتر اسناد رسمی 2.jpg" />

@@ -1,4 +1,7 @@
 ﻿@using Kendo.Mvc.UI
+@using Cr24.WebSite.DAL.Models,
+@model Cr24.WebSite.DAL.Models.ArticleModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,4 +15,50 @@
                 @(Html.Kendo().Button().Name("SearchButton").HtmlAttributes(new { type = "button" }).Icon("search"))
             </div>
         </div>
+        <div class="row">
+                @(Html.Kendo().Grid<ArticleModel>()
+                    .Name("grdArticle")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(p => p.Id).Hidden();
+                        columns.Bound(p => p.Title).Title("عنوان").Width(150).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
+                        columns.Bound(p => p.Summary).Title("چکیده").HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
+                        columns.Bound(p => p.Category).Title("نوع").Width(130).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
+                        columns.Bound(p => p.CreationDate).Title("تاریخ درج").Width(100).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
+                        columns.Template(t => true).Title("دانلود")
+                            .ClientTemplate(@"<a href='../../Article/DownloadArticle/#=Id#' class='k-button' style= 'font-weight:bold;'><i class='k-icon k-i-download'></i>" + "دانلود" + " </a>")
+                            .Width(100).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
+                        columns.Template(t => true).Title("حذف")
+                            .ClientTemplate(@"<a href='../../Article/DeleteArticle/#=Id#' class='k-button' style= 'font-weight:bold;'><i class='k-icon k-i-delete'></i>" + "حذف" + " </a>")
+                            .Width(100).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
+                    })
+                  .ToolBar(toolbar =>
+                  {
+                      toolbar.Custom()
+                          .HtmlAttributes(new { id = "addEntity", style = "font-weight:bold;" })
+                          .Name("New")@* creates a button with class k-grid-duplicate *@
+                          .Text("جدید")
+                          .IconClass("k-icon k-i-add")
+                          .Url("#");
+                  })
+                 .Pageable(pager => pager
+                 .Input(false)
+                 .Numeric(false)
+                 .Info(true)
+                 .PreviousNext(true)
+                 .Refresh(true)
+                 .Messages(messages => messages.Display("اطلاعات از شماره {0} تا {1}. تعداد کل اطلاعات: {2}")
+                                                .Empty("هیچ اطلاعاتی وجود ندارد")))
+                    .Sortable()
+                    .Events(e => e.Change("SetPageAndId").DataBound("SelectRowWithId"))
+                    .Selectable(s => s.Mode(Kendo.Mvc.UI.GridSelectionMode.Single))
+                    .Scrollable(scr => scr.Height(650))
+                    .DataSource(dataSource => dataSource
+                      .Ajax()
+                      .Read(ds => ds.Action("GetAllArticles", "Article").Data("GetRequestData"))
+                      .Model(model => model.Id(p => p.Id))
+                      ))
+            </div>
+          
+    </div>
 </section>

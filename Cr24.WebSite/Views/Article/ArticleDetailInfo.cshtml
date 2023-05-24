@@ -1,7 +1,306 @@
-﻿
+﻿@using Kendo.Mvc.UI
+@using Cr24.WebSite.DAL.Enum
+@using Cr24.WebSite.DAL.Models,
+@model ArticleModel
 @{
-    ViewBag.Title = "ArticleDetailInfo";
+    Layout = null;
 }
+
+<div id="winArticleSearch">
+    @using (Html.BeginForm("Save", "Article", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.Id)
+        <div class="container" style="margin-top: 5px;margin-right:5px;border: 1px gainsboro solid;" cellspacing="5px">
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("تصویر")
+                </div>
+                <div class="col-md-10 text-right" style="width: 500px">
+                    @(Html.Kendo().Upload()
+                            .Name("image")
+                            .Multiple(false)
+                            .Messages(s =>
+                            {
+                                s.InvalidFiles("نوع فایل انتخاب شده صحیح نمی باشد");
+                                s.StatusUploaded("بارگزاری فایل با موفقیت انجام شد");
+                                s.StatusUploading("در حال بارگزاری");
+                                s.StatusFailed("بارگزاری فایل با شکست مواجه شد");
+                            })
+                            .Validation(validation =>
+                            {
+                                validation.MaxFileSize(15728640);
+                                validation.AllowedExtensions(new string[] { "jpg", "jpeg"});
+                            })
+                            .Async(a => a
+                                .Save("ArticleImage_Save", "Article")
+                                .Remove("ArticleImage_Remove", "Article")
+                                .AutoUpload(true))
+                            .Events(Articles => Articles
+                                .Success("onSuccessImage")))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">آدرس تصویر بارگذاری شده</span>
+                        <input id="imgUrl" type="text" readonly class="form-control">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("تاریخ")
+                </div>
+                <div class="col-md-1">
+                    @*@(Html.Kendo().TextBox().Name("ArticleDateStr").Value(Model.CreationDate)
+                                    .HtmlAttributes(new
+                                    {
+                                        data_targetselector = "#ArticleDateStr",
+                                        type = "text",
+                                        data_mddatetimepicker = "true",
+                                        data_placement = "right",
+                                        data_trigger = "click",
+                                        data_fromdate = "true",
+                                        @class = "datePicker-input "
+                                    }))*@
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("دسته")
+                </div>
+                <div class="col-md-9 text-right">
+                    @(Html.Kendo().ComboBoxFor(m => m.Category)
+                                        .BindTo(new List<DropDownListItem>
+                                        {
+                                            new DropDownListItem
+                                            {
+                                                Value = ArticleCategory.CreditScoring.ToString(),
+                                                Text = ArticleCategory.CreditScoring.ToPersian()
+                                            },
+                                            new DropDownListItem
+                                            {
+                                                Value = ArticleCategory.CreditRating.ToString(),
+                                                Text = ArticleCategory.CreditRating.ToPersian()
+                                            }
+                                        })
+                                        .Name("Category")
+                                        .Placeholder("انتخاب کنید")
+                                        .HtmlAttributes(new { style = "width:17.4em" }))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("عنوان")
+                </div>
+                <div class="col-md-9 text-right">
+                    @Html.Kendo().TextBoxFor(m => m.Title).Name("Title")@*.Value(Model.Title)*@.HtmlAttributes(new { style = "width:650px", maxlength = "150" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("تگ ها")
+                </div>
+                <div class="col-md-7">
+                    @(Html.Kendo().MultiSelect()
+                        .Name("TagIndexes")
+                        .Placeholder("تگ های مرتبط با این مقاله را انتخاب کنید...")
+                        .DataTextField("text")
+                        .DataValueField("id")
+                        .HtmlAttributes(new { style = "width:80%;" })
+                        .IgnoreCase(true)
+                        .AutoBind(true)
+                        .ValuePrimitive(false)
+                        .Filter(FilterType.Contains)
+                        .DataSource(source =>  source.Read(read => read.Action("GetAllTags", "Article"))))
+                </div>
+                <div class="col-md-2">
+                    @Html.Kendo().Button().Name("جدید").HtmlAttributes(new { type = "button", id = "btnPopup" }).Icon("plus").Content("جدید")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("چکیده")
+                </div>
+                <div class="col-md-9 text-right">
+                    @Html.Kendo().TextBoxFor(m => m.Summary).Name("Summary")@*.Value(Model.Summary)*@.HtmlAttributes(new { style = "width:650px", maxlength = "512" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("مشروح")
+                </div>
+                <div class="col-md-9">
+                    @Html.TextAreaFor(o => o.Description, new { style = "width: 550px !important; height:300px !important" })
+                    <script>
+                    $(document).ready(function () {
+                        $("#TextContent").addClass('k-rtl');
+                        $("#TextContent").kendoEditor({
+                            tools: [
+                                "indent", "outdent"
+                                , "justifyLeft", "justifyCenter", "justifyRight"
+                                , "createLink", "unlink", "insertImage"
+                                , "insertUnorderedList", "insertOrderedList"
+                                , "createTable", "viewHtml"
+                                , "bold", "italic", "underline", "fontName", "style", "fontSize"
+                                , "dialogInsert"
+                            ],
+                        });
+                    });
+                    </script>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("فایل")
+                </div>
+                <div class="col-md-5 text-right" style="width: 500px">
+                    @(Html.Kendo().Upload()
+                            .Name("file")
+                            .Multiple(false)
+                            .Messages(s =>
+                            {
+                                s.InvalidFiles("نوع فایل انتخاب شده صحیح نمی باشد");
+                                s.StatusUploaded("بارگزاری فایل با موفقیت انجام شد");
+                                s.StatusUploading("در حال بارگزاری");
+                                s.StatusFailed("بارگزاری فایل با شکست مواجه شد");
+                            })
+                            .Validation(validation =>
+                            {
+                                validation.MaxFileSize(15728640);
+                                validation.AllowedExtensions(new string[] { "pdf"});
+                            })
+                            .Async(a => a
+                                .Save("ArticleFile_Save", "Article")
+                                .Remove("ArticleFile_Remove", "Article")
+                                .AutoUpload(true))
+                            .Events(Articles => Articles
+                                .Success("onSuccessFile")))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="basic-addon1">فایل بارگذاری شده</span>
+                        @*@Html.TextBoxFor(m => m.FileName, new { @readonly = "readonly" })*@
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">&nbsp;</div>
+                <div class="col-md-1">
+                    <button type="submit" id="btnSave" class="k-button k-button-icontext" value="ذخیره">ذخیره</button>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="btnCancel" class="k-button k-button-icontext" value="انصراف">انصراف</button>
+                </div>
+                <div class="col-md-4">&nbsp;</div>
+            </div>
+            <br />
+        </div>
+    }
+</div>
+<div>
+    <div class="k-rtl">
+        @(Html.Kendo().Window().Modal(true)
+                          .Name("TagPopup")
+                          .Visible(false)
+                          .Actions(action => action.Close())
+                          .Title("جزئیات تگ")
+                          .Content(@<div id="TagModal">
+                                        <div class="row">
+                                            <div class="col-md-1"><label>تگ جدید</label></div>
+                                            <div class="col-md-7 text-right">
+                                                @Html.Kendo().TextBox().Name("TagName").Value("").HtmlAttributes(new { id = "tagId"})
+                                            </div>
+                                            <div class="col-md-1">
+                                                @Html.Kendo().Button().Name("Save").HtmlAttributes(new { type = "button", id = "btnTag" }).Icon("save").Content("ذخیره")
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <p id="tagError" style="color: red; display: none; font-size: 14px; font-weight: bold;">
+                                                    تگ تکراری مجاز نمی باشد!
+                                                </p>
+                                            </div>
+                                        </div>
+                                   </div>)
+                          .Width(700))
+    </div>
+</div>
+
+<script>
+    @*$(document).ready(function () {
+
+        //Clear Kendo upload & URL
+        var upload = $("#image").data("kendoUpload");
+        upload.removeAllFiles();
+        $("#imgUrl").val("");
+        $("#fileName").val("");
+
+        selectedId = 0;
+    });
+
+    function OpenTagModal() {
+        tagWindow = $("#TagPopup").data("kendoWindow");
+        tagWindow.open();
+        tagWindow.center();
+    };
+
+    function LoadTagInfo() {
+        $("tagName").val("");
+        //$("#TagModal").load("@Url.Action("DefineTage", "Article")", { "tagName": tagName }, function () { });
+    };
+
+   $("#btnTag").click(function () {
+       $("#btnTag").prop("disabled", true);
+       var articleId = '@Model.Id';
+       var url = '@Url.Action("SaveTag")' + '?tagName=' + $("#tagId").val() + '&articleId=' + articleId;
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            success: function (e) {
+                if (e.Result == true) {
+                    tagWindow = $("#TagPopup").data("kendoWindow");
+                    tagWindow.close();
+
+                    var articleTags = $("#TagIndexes").data("kendoMultiSelect");
+                    $.each(e.articleTags.split(","), function (i, e) {
+                        $("#TagIndexes option[value='" + e + "']").prop("selected", true);
+                    });
+                    articleTags.dataSource.read();
+                    articleTags.refresh();
+
+                    $("#btnTag").prop("disabled", true);
+                }
+                else {
+                    $("#tagError").show();
+                    $("#btnTag").prop("disabled", false);
+                }
+            },
+            error: function () { }
+        });
+    });
+
+    $("#btnPopup").click(function () {
+        $("#btnTag").prop("disabled", false);
+        $("#tagId").val("");
+        $("#tagError").hide();
+        $("tagName").val("");
+
+        OpenTagModal();
+    });
+
+    $("#btnCancel").click(function () {
+        ArticleWindow.close();
+    });*@
+
+</script>
+
 
 
 

@@ -57,7 +57,7 @@ body {
 }
 
 .content-wrapper {
-    padding: 70px 70px 0px 70px;
+    padding: 70px 20px 0px 20px;
     min-height: 110%;
     background-color: #ecf0f5;
     z-index: 800;
@@ -175,7 +175,7 @@ header.main-headerS {
     font-size: 15px;
     line-height: 50px;
     text-align: center;
-    width: 230px;
+    width: 200px;
     padding: 0 15px;
     font-weight: 300;
     overflow: hidden;

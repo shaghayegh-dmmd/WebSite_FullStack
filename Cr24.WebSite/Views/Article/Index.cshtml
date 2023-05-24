@@ -4,7 +4,7 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
 <section id="article" style="min-height: 800px">
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="row">
-                @(Html.Kendo().Grid<ArticleModel>()
+            @(Html.Kendo().Grid<ArticleModel>()
                     .Name("grdArticle")
                     .Columns(columns =>
                     {
@@ -58,7 +58,197 @@
                       .Read(ds => ds.Action("GetAllArticles", "Article").Data("GetRequestData"))
                       .Model(model => model.Id(p => p.Id))
                       ))
-            </div>
-          
+        </div>
+
+    </div>
+    <div>
+        <div class="k-rtl">
+            @(Html.Kendo().Window().Modal(true)
+                          .Name("ArticlePopup")
+                          .Visible(false)
+                          .Actions(action => action.Close())
+                          .Title("جزئیات مقاله")
+                          .Content(@<div id="ArticleModal">
+                                   </div>)
+                          .Width(700))
+        </div>
     </div>
 </section>
+<script type="text/javascript" language="javascript">
+
+    @*$("#btnTag").click(function () {
+        $("#btnTag").prop("disabled", true);
+
+        var url = '@Url.Action("SaveTag")' + '?tag=' + $("#tagId").val() + "&articleId=" + selectedId;
+        $.ajax({
+            url: url,
+            type: "POST",
+            dataType: "json",
+            success: function (data) {
+                if (data == 1) {
+                    $("#TagIndexes").data("kendoMultiSelect").dataSource.read();
+                    $("#TagIndexes").data("kendoMultiSelect").refresh();
+                    $("#btnTag").prop("disabled", true);
+                    tagWindow.data("kendoWindow").close();
+                }
+                if (data == 0) {
+                    $("#tagError").show();
+                    $("#btnTag").prop("disabled", false);
+                }
+            },
+            error: function () { }
+        });
+    });*@
+
+    function OnCopyUrlClick(e) {
+        $("#imgUrl").select();
+        document.execCommand('copy');
+    }
+
+    @*function doEdit() {
+        $("#ArticleId").value = selectedId;
+        $.ajax({
+            url: "@Url.Content("~/Article/GetArticleById")",
+            type: 'GET',
+            data: { articleId: selectedId},
+            success: function (res) {
+                $("#Title").val(res.Title);
+                $("#Summary").val(res.Summary);
+                $("#ArticleDateStr").val(res.ArticleDateStr);
+
+                options = Array.from(document.querySelectorAll('#TagIndexes option'));
+                res.TextContent.split(',').forEach(function (v) {
+                    options.find(c => c.value == v).selected = true;
+                });
+
+                myWindow.data("kendoWindow").open();
+            },
+            error: function () {
+                popupNotification.show("خطا در ذخیره سازی");
+            }
+        });
+    }*@
+
+    //$("#btnSave").click(function () {
+
+    //    if ($("#Category").data("kendoComboBox").value() == ''
+    //        || $("#Category").data("kendoComboBox").value() == null) {
+    //        $('#Category').parent().css("border", "1px solid red");
+    //        return false;
+    //    } else {
+    //        $('#Category').parent().css("border", "1px solid rgb(197,197,197)");
+    //    }
+
+    //    if ($("#Title").val() == "") {
+    //        $('#Title').css("border", "1px solid red");
+    //        return false;
+    //    } else {
+    //        $('#Title').css("border", "1px solid rgb(197,197,197)");
+    //    }
+    //    if ($("#Summary").val() == "") {
+    //        $('#Summary').css("border", "1px solid red");
+    //        return false;
+    //    } else {
+    //        $('#Summary').css("border", "1px solid rgb(197,197,197)");
+    //    }
+    //    if ($("#textContent").val() == "") {
+    //        $('#textContent').parent().css("border", "1px solid red");
+    //        return false;
+    //    } else {
+    //        $('#textContent').parent().css("border", "1px solid rgb(197,197,197)");
+    //    }
+
+    //    return true;
+    //});
+
+    function OpenArticleModal() {
+        ArticleWindow.open();
+        ArticleWindow.center();
+    };
+
+    function LoadArticleInfo() {
+        $("#ArticleModal").load("@Url.Action("ArticleDetailInfo", "Article")", { "articleId": selectedId }, function () { });
+    };
+
+    $("#addEntity").click(function () {
+        UnSelectRow();
+        OpenArticleModal();
+        LoadArticleInfo();
+    });
+
+    function UnSelectRow() {
+        var grid = $('#grdArticle').data('kendoGrid');
+        grid.select().each(function () {
+            var dataItem = grid.dataItem($(this));
+            if (dataItem.Id == selectedId) {
+                $('[data-uid=' + dataItem.uid + ']').removeClass('k-state-selected');
+            }
+        });
+        selectedId = 0;
+        $("#ArticleId").value = selectedId;
+    }
+
+    function SetPageAndId() {
+        GetSelectedId();
+        OpenArticleModal();
+        LoadArticleInfo();
+    }
+
+    function GetSelectedId() {
+        var grid = $('#grdArticle').data('kendoGrid');
+        selectedId = 0;
+
+        grid.select().each(function () {
+            var dataItem = grid.dataItem($(this));
+            selectedId = dataItem.Id;
+        });
+    }
+
+    function SelectRowWithId() {
+        if ('@ViewData["SelectedId"]' != '' && '@ViewData["SelectedId"]' != '0') {
+            var id = '@ViewData["SelectedId"]';
+            var grid = $('#grdArticle').data('kendoGrid');
+
+            $.each(grid.tbody.find('tr'), function () {
+                var model = grid.dataItem($(this));
+                if (model.Id == id) {
+                    $('[data-uid=' + model.uid + ']').addClass('k-state-selected');
+                }
+            });
+        }
+    }
+
+    function onSuccessImage(e) {
+        $("#imgUrl").val(e.response.ImageUrl);
+
+        popupNotification = $("#popupNotification").data("kendoNotification");
+
+        popupNotification.show(e.response.Result);
+    }
+
+    function onSuccessFile(e) {
+        $("#fileName").val(e.response.FileName);
+
+        var popupNotification = $("#popupNotification").data("kendoNotification");
+        popupNotification.show("فایل با موفقیت بارگذاری شد.");
+    }
+
+
+    $(document).ready(function () {
+        var selectedId = 0;
+        var popupNotification = $("#popupNotification").data("kendoNotification");
+
+
+        ArticleWindow = $("#ArticlePopup").data("kendoWindow");
+        GetSelectedId();
+
+        var buttonSearch = $("#SearchButton").data("kendoButton");
+        buttonSearch.enable(true);
+    });
+
+    $("#SearchButton").click(function () {
+        var grid = $('#grdArticle').data('kendoGrid');
+        grid.dataSource.read();
+        grid.refresh();
+    });
+</script>

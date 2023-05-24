@@ -136,8 +136,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Css\Style.css" />
-    <Content Include="Content\Css\StyleMenu.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\styleMenu.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\icomoon.svg" />

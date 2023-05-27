@@ -79,7 +79,7 @@
     @*$("#btnTag").click(function () {
         $("#btnTag").prop("disabled", true);
 
-        var url = '@Url.Action("SaveTag")' + '?tag=' + $("#tagId").val() + "&articleId=" + selectedId;
+        var url = '@Url.Action("SaveTag")' + '?tag=' + $("#tagId").val() + "&articleId=" + selectedId; 
         $.ajax({
             url: url,
             type: "POST",
@@ -100,10 +100,10 @@
         });
     });*@
 
-    function OnCopyUrlClick(e) {
-        $("#imgUrl").select();
-        document.execCommand('copy');
-    }
+    //function OnCopyUrlClick(e) {
+    //    $("#imgUrl").select();
+    //    document.execCommand('copy');
+    //}
 
     @*function doEdit() {
         $("#ArticleId").value = selectedId;
@@ -167,7 +167,7 @@
     };
 
     function LoadArticleInfo() {
-        $("#ArticleModal").load("@Url.Action("ArticleDetailInfo", "Article")", { "articleId": selectedId }, function () { });
+        $("#ArticleModal").load("@Url.Action("ArticleDetailInfo", "Article")", function () { });
     };
 
     $("#addEntity").click(function () {

@@ -12,3 +12,11 @@ img.menu-icon {
     width: 18px;
     height: 18px;
 }
+.k-widget.k-window.k-rtl {
+    transform: scale(1) !important;
+    top: 15% !important;
+    width: 80% !important;
+    height: 80% !important;
+    position: absolute;
+    right: 10%;
+}

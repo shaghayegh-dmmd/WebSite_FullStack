@@ -54,16 +54,16 @@
                 </div>
                 <div class="col-md-1">
                     @*@(Html.Kendo().TextBox().Name("ArticleDateStr").Value(Model.CreationDate)
-                                    .HtmlAttributes(new
-                                    {
-                                        data_targetselector = "#ArticleDateStr",
-                                        type = "text",
-                                        data_mddatetimepicker = "true",
-                                        data_placement = "right",
-                                        data_trigger = "click",
-                                        data_fromdate = "true",
-                                        @class = "datePicker-input "
-                                    }))*@
+                        .HtmlAttributes(new
+                        {
+                            data_targetselector = "#ArticleDateStr",
+                            type = "text",
+                            data_mddatetimepicker = "true",
+                            data_placement = "right",
+                            data_trigger = "click",
+                            data_fromdate = "true",
+                            @class = "datePicker-input "
+                        }))*@
                 </div>
             </div>
             <div class="row">
@@ -134,20 +134,20 @@
                 <div class="col-md-9">
                     @Html.TextAreaFor(o => o.Description, new { style = "width: 550px !important; height:300px !important" })
                     <script>
-                    $(document).ready(function () {
-                        $("#TextContent").addClass('k-rtl');
-                        $("#TextContent").kendoEditor({
-                            tools: [
-                                "indent", "outdent"
-                                , "justifyLeft", "justifyCenter", "justifyRight"
-                                , "createLink", "unlink", "insertImage"
-                                , "insertUnorderedList", "insertOrderedList"
-                                , "createTable", "viewHtml"
-                                , "bold", "italic", "underline", "fontName", "style", "fontSize"
-                                , "dialogInsert"
-                            ],
+                        $(document).ready(function () {
+                            $("#TextContent").addClass('k-rtl');
+                            $("#TextContent").kendoEditor({
+                                tools: [
+                                    "indent", "outdent"
+                                    , "justifyLeft", "justifyCenter", "justifyRight"
+                                    , "createLink", "unlink", "insertImage"
+                                    , "insertUnorderedList", "insertOrderedList"
+                                    , "createTable", "viewHtml"
+                                    , "bold", "italic", "underline", "fontName", "style", "fontSize"
+                                    , "dialogInsert"
+                                ],
+                            });
                         });
-                    });
                     </script>
                 </div>
             </div>

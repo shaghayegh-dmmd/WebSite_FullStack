@@ -48,27 +48,10 @@
                     </div>
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-md-1">
-                    @Html.Raw("تاریخ")
-                </div>
-                <div class="col-md-1">
-                    @*@(Html.Kendo().TextBox().Name("ArticleDateStr").Value(Model.CreationDate)
-                        .HtmlAttributes(new
-                        {
-                            data_targetselector = "#ArticleDateStr",
-                            type = "text",
-                            data_mddatetimepicker = "true",
-                            data_placement = "right",
-                            data_trigger = "click",
-                            data_fromdate = "true",
-                            @class = "datePicker-input "
-                        }))*@
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-1">
-                    @Html.Raw("دسته")
+                    دسته
                 </div>
                 <div class="col-md-9 text-right">
                     @(Html.Kendo().ComboBoxFor(m => m.Category)
@@ -85,22 +68,22 @@
                                                 Text = ArticleCategory.CreditRating.ToPersian()
                                             }
                                         })
-                                        .Name("Category")
+                                        .Name("Category") 
                                         .Placeholder("انتخاب کنید")
                                         .HtmlAttributes(new { style = "width:17.4em" }))
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-1">
-                    @Html.Raw("عنوان")
+                  عنوان
                 </div>
                 <div class="col-md-9 text-right">
-                    @Html.Kendo().TextBoxFor(m => m.Title).Name("Title")@*.Value(Model.Title)*@.HtmlAttributes(new { style = "width:650px", maxlength = "150" })
+                    @Html.Kendo().TextBoxFor(m => m.Title).Name("Title").HtmlAttributes(new { style = "width:650px", maxlength = "150" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-1">
-                    @Html.Raw("تگ ها")
+                    تگ ها
                 </div>
                 <div class="col-md-7">
                     @(Html.Kendo().MultiSelect()
@@ -121,15 +104,15 @@
             </div>
             <div class="row">
                 <div class="col-md-1">
-                    @Html.Raw("چکیده")
+                    چکیده
                 </div>
                 <div class="col-md-9 text-right">
-                    @Html.Kendo().TextBoxFor(m => m.Summary).Name("Summary")@*.Value(Model.Summary)*@.HtmlAttributes(new { style = "width:650px", maxlength = "512" })
+                    @Html.Kendo().TextBoxFor(m => m.Summary).Name("Summary").HtmlAttributes(new { style = "width:650px", maxlength = "512" })
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-1">
-                    @Html.Raw("مشروح")
+                   مشروح
                 </div>
                 <div class="col-md-9">
                     @Html.TextAreaFor(o => o.Description, new { style = "width: 550px !important; height:300px !important" })
@@ -153,7 +136,7 @@
             </div>
             <div class="row">
                 <div class="col-md-1">
-                    @Html.Raw("فایل")
+                  فایل
                 </div>
                 <div class="col-md-5 text-right" style="width: 500px">
                     @(Html.Kendo().Upload()

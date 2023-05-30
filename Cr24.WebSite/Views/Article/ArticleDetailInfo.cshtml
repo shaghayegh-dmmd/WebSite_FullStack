@@ -15,7 +15,7 @@
                 <div class="col-md-1">
                     @Html.Raw("تصویر")
                 </div>
-                <div class="col-md-10 text-right" style="width: 500px">
+                <div class="ken-Upload col-md-9 text-right" style="">
                     @(Html.Kendo().Upload()
                             .Name("image")
                             .Multiple(false)
@@ -29,10 +29,10 @@
                             .Validation(validation =>
                             {
                                 validation.MaxFileSize(15728640);
-                                validation.AllowedExtensions(new string[] { "jpg", "jpeg"});
+                                validation.AllowedExtensions(new string[] { "jpg", "jpeg","png"});
                             })
                             .Async(a => a
-                                .Save("ArticleImage_Save", "Article")
+                                .Save("Async_SaveImage", "Article")
                                 .Remove("ArticleImage_Remove", "Article")
                                 .AutoUpload(true))
                             .Events(Articles => Articles
@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <div class="col-md-1"></div>
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="input-group">
                         <span class="input-group-addon" id="basic-addon1">آدرس تصویر بارگذاری شده</span>
                         <input id="imgUrl" type="text" readonly class="form-control">
@@ -70,7 +70,7 @@
                                         })
                                         .Name("Category") 
                                         .Placeholder("انتخاب کنید")
-                                        .HtmlAttributes(new { style = "width:17.4em" }))
+                                        .HtmlAttributes(new { style = "width:100%" }))
                 </div>
             </div>
             <div class="row">
@@ -78,7 +78,7 @@
                   عنوان
                 </div>
                 <div class="col-md-9 text-right">
-                    @Html.Kendo().TextBoxFor(m => m.Title).Name("Title").HtmlAttributes(new { style = "width:650px", maxlength = "150" })
+                    @Html.Kendo().TextBoxFor(m => m.Title).Name("Title").HtmlAttributes(new { style = "width:100%", maxlength = "150" })
                 </div>
             </div>
             <div class="row">
@@ -91,7 +91,7 @@
                         .Placeholder("تگ های مرتبط با این مقاله را انتخاب کنید...")
                         .DataTextField("text")
                         .DataValueField("id")
-                        .HtmlAttributes(new { style = "width:80%;" })
+                        .HtmlAttributes(new { style = "width:100%;" })
                         .IgnoreCase(true)
                         .AutoBind(true)
                         .ValuePrimitive(false)
@@ -107,7 +107,7 @@
                     چکیده
                 </div>
                 <div class="col-md-9 text-right">
-                    @Html.Kendo().TextBoxFor(m => m.Summary).Name("Summary").HtmlAttributes(new { style = "width:650px", maxlength = "512" })
+                    @Html.Kendo().TextBoxFor(m => m.Summary).Name("Summary").HtmlAttributes(new { style = "width:100%", maxlength = "512" })
                 </div>
             </div>
             <div class="row">
@@ -115,7 +115,7 @@
                    مشروح
                 </div>
                 <div class="col-md-9">
-                    @Html.TextAreaFor(o => o.Description, new { style = "width: 550px !important; height:300px !important" })
+                    @Html.TextAreaFor(o => o.Description, new { style = "width: 100% !important; height:300px !important" })
                     <script>
                         $(document).ready(function () {
                             $("#TextContent").addClass('k-rtl');
@@ -138,7 +138,7 @@
                 <div class="col-md-1">
                   فایل
                 </div>
-                <div class="col-md-5 text-right" style="width: 500px">
+                <div class="ken-Upload col-md-9 text-right" style="">
                     @(Html.Kendo().Upload()
                             .Name("file")
                             .Multiple(false)
@@ -155,7 +155,7 @@
                                 validation.AllowedExtensions(new string[] { "pdf"});
                             })
                             .Async(a => a
-                                .Save("ArticleFile_Save", "Article")
+                                .Save("Async_SaveFile", "Article")
                                 .Remove("ArticleFile_Remove", "Article")
                                 .AutoUpload(true))
                             .Events(Articles => Articles
@@ -173,11 +173,11 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4">&nbsp;</div>
-                <div class="col-md-1">
+                <div>&nbsp;</div>
+                <div class="col-md-2">
                     <button type="submit" id="btnSave" class="k-button k-button-icontext" value="ذخیره">ذخیره</button>
                 </div>
-                <div class="col-md-1">
+                <div class="col-md-2">
                     <button type="button" id="btnCancel" class="k-button k-button-icontext" value="انصراف">انصراف</button>
                 </div>
                 <div class="col-md-4">&nbsp;</div>
@@ -216,7 +216,7 @@
 </div>
 
 <script>
-    @*$(document).ready(function () {
+   $(document).ready(function () {
 
         //Clear Kendo upload & URL
         var upload = $("#image").data("kendoUpload");
@@ -280,7 +280,7 @@
 
     $("#btnCancel").click(function () {
         ArticleWindow.close();
-    });*@
+    });
 
 </script>
 

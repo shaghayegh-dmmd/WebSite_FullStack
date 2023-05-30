@@ -26,3 +26,47 @@ div#ArticlePopup {
 .rtl .col-md-1 {
     width: 100%!important;
 }
+.container {
+    display: flex;
+    height: 100%;
+    padding: 30px;
+    position: relative;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+}
+.row {
+    margin-bottom: 20px;
+    width: 100%;
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+input#imgUrl {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 37px;
+}
+textarea#Description {
+    width: 100% !important;
+    height: 300px !important;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+em.k-dropzone-hint {
+    display: none;
+}
+
+
+    @media only screen and (min-width: 600px) {
+     /*   .ken-Upload {
+            width: 76% !important;
+        }*/
+    }
+
+    @media only screen and (max-width: 600px) {
+        .container {
+            padding: 10px;
+        }
+    }

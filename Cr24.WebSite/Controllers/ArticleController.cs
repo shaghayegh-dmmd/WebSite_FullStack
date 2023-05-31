@@ -15,6 +15,7 @@ namespace Cr24.WebSite.Controllers
 {
     public class ArticleController: Controller
     {
+        #region Article's Info
         public ActionResult Index()
         {
             return View();
@@ -156,5 +157,26 @@ namespace Cr24.WebSite.Controllers
             var res = WebSiteService.DeleteArticle(id);
             return Json(res, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+        #region Article's Tag
+        public JsonResult GetAllTags()
+        {
+            List<TagModel> lstTag = WebSiteService.GetAllTags();
+            return Json(lstTag, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult SaveTag(string tagName)
+        {
+            bool result = false;
+            string lst = string.Empty;
+            var tagInfo = WebSiteService.GetTagByName(tagName);
+            if (tagInfo == null)
+            {
+                result = WebSiteService.SaveTag(tagName);
+                
+            }
+
+            return Json(new { Result = result, articleTags = tagInfo.Id }, "text/plain");
+        }
+        #endregion
     }
 }

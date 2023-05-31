@@ -103,7 +103,65 @@ namespace Cr24.WebSite.BLL
 
         }
 
+        #region Article's Tag
+        public static List<TagModel> GetAllTags()
+        {
 
+            using (var db = new WebEntity())
+            {
+                return db.User_Tag.Select(o => new TagModel
+                {
+                    TagName = o.TagName
+
+                }).ToList();
+            }
+
+        }
+        public static bool SaveTag(string tagName)
+        {
+            try
+            {
+
+                var newFile = new User_Tag
+                {
+                    TagName = tagName
+
+                };
+
+                using (var db = new WebEntity())
+                {
+                    db.User_Tag.Add(newFile);
+                    db.SaveChanges();
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public static TagModel GetTagByName(string tag)
+        {
+
+            using (var db = new WebEntity())
+            {
+                User_Tag tagInfo = db.User_Tag.FirstOrDefault(o => o.TagName == tag);
+
+                if (tagInfo != null) {
+
+                    return new TagModel
+                    {
+                        Id = tagInfo.Id,
+                        TagName = tagInfo.TagName,
+                    };
+                } 
+                else
+                   return null;
+
+            }
+        }
+        #endregion
         #endregion
 
 

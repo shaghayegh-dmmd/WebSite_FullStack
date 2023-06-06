@@ -236,12 +236,12 @@
     function LoadTagInfo() {
         $("tagName").val("");
         //$("#TagModal").load("@Url.Action("DefineTage", "Article")", { "tagName": tagName }, function () { });
-    };
+    };*@
 
    $("#btnTag").click(function () {
        $("#btnTag").prop("disabled", true);
-       var articleId = '@Model.Id';
-       var url = '@Url.Action("SaveTag")' + '?tagName=' + $("#tagId").val() + '&articleId=' + articleId;
+      
+       var url = '@Url.Action("SaveTag")' + '?tagName=' + $("#tagId").val();
         $.ajax({
             url: url,
             type: "POST",
@@ -269,18 +269,18 @@
         });
     });
 
-    $("#btnPopup").click(function () {
-        $("#btnTag").prop("disabled", false);
-        $("#tagId").val("");
-        $("#tagError").hide();
-        $("tagName").val("");
+    //$("#btnPopup").click(function () {
+    //    $("#btnTag").prop("disabled", false);
+    //    $("#tagId").val("");
+    //    $("#tagError").hide();
+    //    $("tagName").val("");
 
-        OpenTagModal();
-    });
+    //    OpenTagModal();
+    //});
 
-    $("#btnCancel").click(function () {
-        ArticleWindow.close();
-    });*@
+    //$("#btnCancel").click(function () {
+    //    ArticleWindow.close();
+    //});
 
 </script>
 

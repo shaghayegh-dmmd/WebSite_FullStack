@@ -109,3 +109,5 @@ C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite\bin\zh-CN\Kendo.
 C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite\obj\Debug\Cr24.WebSite.csproj.CopyComplete
 C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite\obj\Debug\Cr24.WebSite.dll
 C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite\obj\Debug\Cr24.WebSite.pdb
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite\bin\EntityFramework.SqlServer.dll
+C:\Users\sh.dostmohamadi\source\repos\Cr24.WebSite\Cr24.WebSite\bin\EntityFramework.SqlServer.xml

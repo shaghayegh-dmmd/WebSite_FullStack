@@ -9,7 +9,7 @@ namespace Cr24.WebSite.DAL.Models
     [Table("[User.Tag]")]
     public partial class User_Tag
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       // [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [StringLength(150)]

@@ -216,7 +216,7 @@
 </div>
 
 <script>
-   @*$(document).ready(function () {
+  $(document).ready(function () {
 
         //Clear Kendo upload & URL
         var upload = $("#image").data("kendoUpload");
@@ -226,14 +226,14 @@
 
         selectedId = 0;
     });
-
+    
     function OpenTagModal() {
         tagWindow = $("#TagPopup").data("kendoWindow");
         tagWindow.open();
         tagWindow.center();
     };
 
-    function LoadTagInfo() {
+    @*function LoadTagInfo() {
         $("tagName").val("");
         //$("#TagModal").load("@Url.Action("DefineTage", "Article")", { "tagName": tagName }, function () { });
     };*@
@@ -269,14 +269,14 @@
         });
     });
 
-    //$("#btnPopup").click(function () {
-    //    $("#btnTag").prop("disabled", false);
-    //    $("#tagId").val("");
-    //    $("#tagError").hide();
-    //    $("tagName").val("");
+    $("#btnPopup").click(function () {
+        $("#btnTag").prop("disabled", false);
+        $("#tagId").val("");
+        $("#tagError").hide();
+        $("tagName").val("");
 
-    //    OpenTagModal();
-    //});
+        OpenTagModal();
+    });
 
     //$("#btnCancel").click(function () {
     //    ArticleWindow.close();

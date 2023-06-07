@@ -159,7 +159,7 @@ namespace Cr24.WebSite.Controllers
         }
         #endregion
         #region Article's Tag
-        public JsonResult GetAllTags()
+        public JsonResult GetAllTags([DataSourceRequest] DataSourceRequest request)
         {
             List<TagModel> lstTag = WebSiteService.GetAllTags();
             return Json(lstTag, JsonRequestBehavior.AllowGet);
@@ -175,7 +175,7 @@ namespace Cr24.WebSite.Controllers
                 
             }
 
-            return Json(new { Result = result, articleTags = tagInfo.Id }, "text/plain");
+            return Json(new {Result = result}, "text/plain");
         }
         #endregion
     }

@@ -135,7 +135,7 @@ namespace Cr24.WebSite.BLL
                 }
                 return true;
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }

@@ -89,14 +89,19 @@
                     @(Html.Kendo().MultiSelect()
                         .Name("TagIndexes")
                         .Placeholder("تگ های مرتبط با این مقاله را انتخاب کنید...")
-                        .DataTextField("text")
-                        .DataValueField("id")
+                        .DataTextField("TagName")
+                        .DataValueField("Id")
                         .HtmlAttributes(new { style = "width:100%;" })
                         .IgnoreCase(true)
                         .AutoBind(true)
                         .ValuePrimitive(false)
                         .Filter(FilterType.Contains)
-                        .DataSource(source =>  source.Read(read => read.Action("GetAllTags", "Article"))))
+                        .DataSource(source =>
+                        {
+                            source.Read(read => read.Action("GetAllTags", "Article"));
+                        }
+                            )
+                            )
                 </div>
                 <div class="col-md-2">
                     @Html.Kendo().Button().Name("جدید").HtmlAttributes(new { type = "button", id = "btnPopup" }).Icon("plus").Content("جدید")

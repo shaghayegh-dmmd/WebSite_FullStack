@@ -49,7 +49,30 @@ namespace Cr24.WebSite.Controllers
 
             return Content("");
         }
-        
+        public ActionResult Async_DeleteImageArticle(string[] fileNames)
+        {
+
+
+            if (fileNames != null)
+            {
+                foreach (var fullName in fileNames)
+                {
+                    var fileName = Path.GetFileName(fullName);
+                    var physicalPath = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+
+                    // TODO: Verify user permissions
+
+                    if (System.IO.File.Exists(physicalPath))
+                    {
+                        // The files are not actually removed in this demo
+                        // System.IO.File.Delete(physicalPath);
+                    }
+                }
+            }
+            Session["Async_SaveImageArticle" + User.Identity.Name] = null;
+            // Return an empty string to signify success
+            return Content("");
+        }
         public ActionResult Async_SaveFile(HttpPostedFileBase file)
         {
 
@@ -58,6 +81,30 @@ namespace Cr24.WebSite.Controllers
                 Session["Async_SaveFileArticle" + User.Identity.Name] = file;
             }
 
+            return Content("");
+        }
+        public ActionResult Async_DeleteFile(string[] fileNames)
+        {
+
+
+            if (fileNames != null)
+            {
+                foreach (var fullName in fileNames)
+                {
+                    var fileName = Path.GetFileName(fullName);
+                    var physicalPath = Path.Combine(Server.MapPath("~/App_Data"), fileName);
+
+                    // TODO: Verify user permissions
+
+                    if (System.IO.File.Exists(physicalPath))
+                    {
+                        // The files are not actually removed in this demo
+                        // System.IO.File.Delete(physicalPath);
+                    }
+                }
+            }
+            Session["Async_SaveFileArticle" + User.Identity.Name] = null;
+            // Return an empty string to signify success
             return Content("");
         }
         public long AddAttachment(HttpPostedFileBase att)
@@ -94,13 +141,17 @@ namespace Cr24.WebSite.Controllers
             {
                 if (attachmentViewModel.Id == 0)
                 {
-                    if (Session["Async_Save" + User.Identity.Name] != null)
+                    if (Session["Async_SaveFileArticle" + User.Identity.Name] != null)
                     {
                         var file = ((HttpPostedFileBase)Session["Async_SaveFileArticle" + User.Identity.Name]);
-                        attachmentViewModel.FileId = AddAttachment(file);
+                    attachmentViewModel.FileId = AddAttachment(file);
+                    }
+                    
+                    if (Session["Async_SaveImageArticle" + User.Identity.Name] != null)
+                    {
                         var Image = ((HttpPostedFileBase)Session["Async_SaveImageArticle" + User.Identity.Name]);
-                        attachmentViewModel.ImageId = "," + AddAttachment(file) + ",";
-
+                        attachmentViewModel.ImageId = "," + AddAttachment(Image) + ",";
+                    }
                         var attachmentsvc = CreatArticle(attachmentViewModel);
 
 
@@ -114,14 +165,14 @@ namespace Cr24.WebSite.Controllers
                                 Message = "فایل با موفقیت ذخیره شد",
                             }, JsonRequestBehavior.AllowGet);
                       
-                    }
+                    //}
 
-                    return Json(new
-                    {
-                        IsSaved = true,
-                        IsValid = true,
-                        Message = "فایل ذخیره نشد",
-                    }, JsonRequestBehavior.AllowGet);
+                    //return Json(new
+                    //{
+                    //    IsSaved = true,
+                    //    IsValid = true,
+                    //    Message = "فایل ذخیره نشد",
+                    //}, JsonRequestBehavior.AllowGet);
                 }
 
                 else

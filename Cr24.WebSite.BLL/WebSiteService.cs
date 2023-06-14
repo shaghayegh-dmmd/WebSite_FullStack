@@ -14,15 +14,19 @@ namespace Cr24.WebSite.BLL
         {
             try
             {
-               
-               
-            var newFile = new User_Article
+
+
+                var newFile = new User_Article
                 {
                     Category = fileData.Category,
                     CreationDate = DateTime.Now,
                     Description = fileData.Description,
                     Summary = fileData.Summary,
-                    Title = fileData.Title
+                    Title = fileData.Title,
+                    FileId = fileData.FileId,
+                    TagId = fileData.TagId,
+                    ImageId = fileData.ImageId,
+
 
                 };
 

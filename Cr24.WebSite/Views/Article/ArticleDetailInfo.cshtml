@@ -1,6 +1,6 @@
 ﻿@using Kendo.Mvc.UI
 @using Cr24.WebSite.DAL.Enum
-@using Cr24.WebSite.DAL.Models,
+@using Cr24.WebSite.DAL.Models
 @model ArticleModel
 @{
     Layout = null;
@@ -15,7 +15,7 @@
 
         @Html.HiddenFor(m => m.Id)
         <div class="container" style="margin-top: 5px;margin-right:5px;border: 1px gainsboro solid;" cellspacing="5px">
-            \
+
             <div class="row"></div>
             <div class="row">
                 <div class="col-md-1">
@@ -48,8 +48,8 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-9">
                     <div class="input-group">
-                        <span class="input-group-addon" id="basic-addon1">آدرس تصویر بارگذاری شده</span>
-                        <input id="imgUrl" type="text" readonly class="form-control">
+                        @*<span class="input-group-addon" id="basic-addon1">آدرس تصویر بارگذاری شده</span>
+                        <input id="imgUrl" type="text" readonly class="form-control">*@
                     </div>
                 </div>
             </div>
@@ -101,7 +101,8 @@
                         .AutoBind(true)
                         .ValuePrimitive(false)
                         .Filter(FilterType.Contains)
-                        .DataSource(source =>
+                        .DataSource(
+                        source =>
                         {
                             source.Read(read => read.Action("GetAllTags", "Article"));
                         }
@@ -125,7 +126,7 @@
                     مشروح
                 </div>
                 <div class="col-md-9">
-                    @Html.TextAreaFor(o => o.Description, new { style = "width: 100% !important; height:300px !important" })
+                    @Html.TextAreaFor(m => m.Description, new { style = "width: 100% !important; height:300px !important" })
                     <script>
                         $(document).ready(function () {
                             $("#TextContent").addClass('k-rtl');
@@ -261,6 +262,7 @@
                     tagWindow.close();
 
                     var articleTags = $("#TagIndexes").data("kendoMultiSelect");
+                    
                     $.each(e.articleTags.split(","), function (i, e) {
                         $("#TagIndexes option[value='" + e + "']").prop("selected", true);
                     });
@@ -303,15 +305,12 @@
             dataType: "json",
             success: function (res) {
                 console.log(res);
-                doEmpty();
+               
                 if (res.IsValid) {
                     ShowDialog("توجه", " با موفقیت انجام شد", "DialogInformation", ["بستن"], null);
                     if (res.IsSaved) {
                         window.ShowInfoMessage(res.Message);
-                        //formEntityId = res.Id;
-                        //IsSavedEntity = true;
-                        //showClearBtn();
-                        //LoadMenu();
+                      
                     } else {
                         window.ShowErrorMessage(res.Message);
                         IsSavedEntity = false;

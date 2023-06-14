@@ -126,17 +126,16 @@ namespace Cr24.WebSite.Controllers
         {
 
             var isSaved = false;
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-                var errorKeys = ModelState.Where(x => x.Value.Errors.Count > 0)
-                    .Select(kvp => kvp.Key
+            //if (!ModelState.IsValid)
+            //{
+            //    var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            //    var errorKeys = ModelState.Where(x => x.Value.Errors.Count > 0)
+            //        .Select(kvp => kvp.Key
+            //        );
 
-                    );
-
-                var allKeys = ModelState.Keys.ToList();
-                return Json(new { IsSaved = false, IsValid = false, errors, errorKeys, allKeys }, JsonRequestBehavior.AllowGet);
-            }
+            //    var allKeys = ModelState.Keys.ToList();
+            //    return Json(new { IsSaved = false, IsValid = false, errors, errorKeys, allKeys }, JsonRequestBehavior.AllowGet);
+            //}
             try
             {
                 if (attachmentViewModel.Id == 0)

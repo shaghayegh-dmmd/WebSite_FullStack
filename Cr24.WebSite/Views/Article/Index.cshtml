@@ -7,60 +7,48 @@
     Layout = null;
 }
 
-<section id="article" style="min-height: 800px">
-    <div class="fullwidth-section">
-        <div class="row" style="font-size: 16px;font-weight: bold;">
-            <div class="col-md-12">
-                عنوان مقاله  : @Html.Kendo().TextBox().Name("SearchTitle").Value((string)@ViewData["SearchTitle"]).HtmlAttributes(new { style = "width: 250px;" })
-                @(Html.Kendo().Button().Name("SearchButton").HtmlAttributes(new { type = "button" }).Icon("search"))
-            </div>
-        </div>
-        <div class="row">
-            @(Html.Kendo().Grid<ArticleModel>()
-                    .Name("grdArticle")
-                    .Columns(columns =>
-                    {
-                        columns.Bound(p => p.Id).Hidden();
-                        columns.Bound(p => p.Title).Title("عنوان").Width(150).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
-                        columns.Bound(p => p.Summary).Title("چکیده").HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
-                        columns.Bound(p => p.Category).Title("نوع").Width(130).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
-                        columns.Bound(p => p.CreationDate).Title("تاریخ درج").Width(100).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
-                        columns.Template(t => true).Title("دانلود")
-                            .ClientTemplate(@"<a href='../../Article/DownloadArticle/#=Id#' class='k-button' style= 'font-weight:bold;'><i class='k-icon k-i-download'></i>" + "دانلود" + " </a>")
-                            .Width(100).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
-                        columns.Template(t => true).Title("حذف")
-                            .ClientTemplate(@"<a href='../../Article/DeleteArticle/#=Id#' class='k-button' style= 'font-weight:bold;'><i class='k-icon k-i-delete'></i>" + "حذف" + " </a>")
-                            .Width(100).HeaderHtmlAttributes(new { style = "text-align:center;font-weight:400;font-size: 16px;" });
-                    })
-                  .ToolBar(toolbar =>
-                  {
-                      toolbar.Custom()
-                          .HtmlAttributes(new { id = "addEntity", style = "font-weight:bold;" })
-                          .Name("New")@* creates a button with class k-grid-duplicate *@
-                          .Text("جدید")
-                          .IconClass("k-icon k-i-add")
-                          .Url("#");
-                  })
-                 .Pageable(pager => pager
-                 .Input(false)
-                 .Numeric(false)
-                 .Info(true)
-                 .PreviousNext(true)
-                 .Refresh(true)
-                 .Messages(messages => messages.Display("اطلاعات از شماره {0} تا {1}. تعداد کل اطلاعات: {2}")
-                                                .Empty("هیچ اطلاعاتی وجود ندارد")))
-                    .Sortable()
-                    .Events(e => e.Change("SetPageAndId").DataBound("SelectRowWithId"))
-                    .Selectable(s => s.Mode(Kendo.Mvc.UI.GridSelectionMode.Single))
-                    .Scrollable(scr => scr.Height(650))
-                    .DataSource(dataSource => dataSource
-                      .Ajax()
-                      .Read(ds => ds.Action("GetAllArticles", "Article").Data("GetRequestData"))
-                      .Model(model => model.Id(p => p.Id))
-                      ))
-        </div>
 
-    </div>
+<section class="gridAll">
+
+    @(Html.Kendo().Grid<ArticleModel>()
+    .Name("ArticleGrid")
+    .HtmlAttributes(new { style = "height:250px;" }).Scrollable(a => a.Height("auto"))
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Hidden();
+        columns.Bound(p => p.Title).Title("عنوان").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+
+        columns.Bound(p => p.Summary).Title("خلاصه").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.CreationDate).Title("تاریخ آخرین به روزرسانی").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.Category).Title("دسته").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(u => u.FileId).Title("دانلود فایل").HeaderHtmlAttributes(new { style = "text-align: center;" }).ClientTemplate("#=GetImage(data.SystemFileType, data.Id, data.FileName)#").HtmlAttributes(new { style = "text-align: center; display: flex; justify-content: center; align-items: flex-start;" }).Width(90);
+
+
+
+    })
+    .Selectable(s => s.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+    .Sortable()
+    .Filterable()
+    .Pageable(pageable => pageable
+    .Refresh(true)
+    .ButtonCount(5)
+    )
+    .ToolBar(toolbar =>
+    {
+        toolbar.Custom()
+            .HtmlAttributes(new { id = "addEntity", style = "font-weight:bold;" })
+            .Name("New")
+            .Text("جدید")
+            .IconClass("k-icon k-i-add")
+            .Url("#");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Read(read => read.Action("GetAllArticle", "Article"))
+    .PageSize(15)
+    )
+
+    )
     <div>
         <div class="k-rtl">
             @(Html.Kendo().Window().Modal(true)
@@ -69,186 +57,160 @@
                           .Actions(action => action.Close())
                           .Title("جزئیات مقاله")
                           .Content(@<div id="ArticleModal">
-                              </div>)
+                                   </div>)
                           .Width(700))
         </div>
     </div>
+
 </section>
-<script type="text/javascript" language="javascript">
+<script>
 
-    @*$("#btnTag").click(function () {
-        $("#btnTag").prop("disabled", true);
 
-        var url = '@Url.Action("SaveTag")' + '?tag=' + $("#tagId").val() + "&articleId=" + selectedId; 
-        $.ajax({
-            url: url,
-            type: "POST",
-            dataType: "json",
-            success: function (data) {
-                if (data == 1) {
-                    $("#TagIndexes").data("kendoMultiSelect").dataSource.read();
-                    $("#TagIndexes").data("kendoMultiSelect").refresh();
-                    $("#btnTag").prop("disabled", true);
-                    tagWindow.data("kendoWindow").close();
-                }
-                if (data == 0) {
-                    $("#tagError").show();
-                    $("#btnTag").prop("disabled", false);
-                }
-            },
-            error: function () { }
-        });
-    });*@
+    $(document).ready(function () {
 
-    //function OnCopyUrlClick(e) {
-    //    $("#imgUrl").select();
-    //    document.execCommand('copy');
-    //}
+        ArticleWindow = $("#ArticlePopup").data("kendoWindow");
 
-    @*function doEdit() {
-        $("#ArticleId").value = selectedId;
-        $.ajax({
-            url: "@Url.Content("~/Article/GetArticleById")",
-            type: 'GET',
-            data: { articleId: selectedId},
-            success: function (res) {
-                $("#Title").val(res.Title);
-                $("#Summary").val(res.Summary);
-                $("#ArticleDateStr").val(res.ArticleDateStr);
-
-                options = Array.from(document.querySelectorAll('#TagIndexes option'));
-                res.TextContent.split(',').forEach(function (v) {
-                    options.find(c => c.value == v).selected = true;
+    });
+    //fileDownload------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+     function GetImage(image, id, fileName) {
+        if (image != null && image !== "") {
+            var returnString = "";
+            dict.push({
+                    key:   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    value: "docx"
+                },
+                {
+                    key:   "application/msword",
+                    value: "doc"
+                },
+                {
+                    key:   "application/vnd.ms-excel",
+                    value: "xls"
+                },
+                {
+                    key:   "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    value: "xlsx"
+                },
+                {
+                    key:   "application/pdf",
+                    value: "pdf"
+                },
+                {
+                    key:   "image/png",
+                    value: "png"
+                },
+                {
+                    key:   "image/jpeg",
+                    value: "jpg"
+                },
+                {
+                    key:   "image/svg+xml",
+                    value: "svg"
+                },
+                {
+                    key: "video/mp4",
+                    value: "mp4"
+                },
+                {
+                    key: "application/octet-stream",
+                    value: "rar"
+                },
+                {
+                    key: "audio/mpeg",
+                    value: "mp3"
+                },
+                {
+                    key: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+                    value: "pptx"
+                },
+                {
+                    key:   "image/tiff",
+                    value: "tiff"
                 });
 
-                myWindow.data("kendoWindow").open();
-            },
-            error: function () {
-                popupNotification.show("خطا در ذخیره سازی");
+            var type = "";
+
+            for (var i = 0; i < dict.length ; i++) {
+                if (dict[i].key == image)
+                    type = dict[i].value;
             }
-        });
-    }*@
 
-    //$("#btnSave").click(function () {
+            switch (type) {
+            case "png":
+            case "jpg":
+            case "tiff":
+            case "tif":
+            case "svg":
+            case "bmp":
 
-    //    if ($("#Category").data("kendoComboBox").value() == ''
-    //        || $("#Category").data("kendoComboBox").value() == null) {
-    //        $('#Category').parent().css("border", "1px solid red");
-    //        return false;
-    //    } else {
-    //        $('#Category').parent().css("border", "1px solid rgb(197,197,197)");
-    //    }
+                returnString = '<img src="@Url.Content("~/Content/Images/image.png")" title=\"image\" height=\"20\" alt=\"image\"/> <a />';
+                    break;
 
-    //    if ($("#Title").val() == "") {
-    //        $('#Title').css("border", "1px solid red");
-    //        return false;
-    //    } else {
-    //        $('#Title').css("border", "1px solid rgb(197,197,197)");
-    //    }
-    //    if ($("#Summary").val() == "") {
-    //        $('#Summary').css("border", "1px solid red");
-    //        return false;
-    //    } else {
-    //        $('#Summary').css("border", "1px solid rgb(197,197,197)");
-    //    }
-    //    if ($("#textContent").val() == "") {
-    //        $('#textContent').parent().css("border", "1px solid red");
-    //        return false;
-    //    } else {
-    //        $('#textContent').parent().css("border", "1px solid rgb(197,197,197)");
-    //    }
+            case "mp4":
+            case "mkv":
+            case "mov":
 
-    //    return true;
-    //});
+                returnString = '<img src="@Url.Content("~/Content/Images/multimedia.png")" title=\"image\" height=\"20\" alt=\"image\"/> <a />';
+                break;
+
+            case "docx":
+            case "doc":
+            case "txt":
+
+                returnString = '<img src="@Url.Content("~/Content/Images/microsoftword.png")" title=\"image\" height=\"20\" alt=\"image\"/>';
+                break;
+
+            case "xlsx":
+            case "xls":
+                returnString = '<img src="@Url.Content("~/Content/Images/microsoftexcel.png")" title=\"image\" height=\"20\" alt=\"image\"/>';
+                break;
+
+            case "pdf":
+                    returnString = '<img src="@Url.Content("~/Content/Images/PDF.png")" title=\"image\" height=\"20\"  alt=\"image\"/>';
+                    break;
+
+
+            case "rar":
+                    returnString = '<img src="@Url.Content("~/Content/Images/rar-file-format.png")" title=\"image\" height=\"20\"  alt=\"image\"/>';
+                break;
+
+            case "mp3":
+                    returnString = '<img src="@Url.Content("~/Content/Images/voice-recorder.png")" title=\"image\" height=\"20\"  alt=\"image\"/>';
+                break;
+
+            case "pptx":
+            case "ppsx":
+                    returnString = '<img src="@Url.Content("~/Content/Images/power.png")" title=\"image\" height=\"20\"  alt=\"image\"/>';
+                break;
+
+            }
+            returnString = returnString + '<a style="margin-right: 10px" href=/OfficialFile/GetAttachedFile?attachmentId=' + id + '>' + '<i class="fa fa-download" aria-hidden="true"></i></a>';
+            return returnString;
+        }
+
+        return "";
+    }
+    //NewArticle----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
     function OpenArticleModal() {
         ArticleWindow.open();
         ArticleWindow.center();
     };
-
-    function LoadArticleInfo() {
+     function LoadArticleInfo() {
         $("#ArticleModal").load("@Url.Action("ArticleDetailInfo", "Article")", function () { });
     };
 
     $("#addEntity").click(function () {
-        
+
         OpenArticleModal();
         LoadArticleInfo();
     });
 
-    function UnSelectRow() {
-        var grid = $('#grdArticle').data('kendoGrid');
-        grid.select().each(function () {
-            var dataItem = grid.dataItem($(this));
-            if (dataItem.Id == selectedId) {
-                $('[data-uid=' + dataItem.uid + ']').removeClass('k-state-selected');
-            }
-        });
-        selectedId = 0;
-        $("#ArticleId").value = selectedId;
+    function Ref() {
+
+        $('#ArticleGrid').data('kendoGrid').dataSource.data([]);
+        $('#ArticleGrid').data('kendoGrid').dataSource.read();
+        $('#ArticleGrid').data('kendoGrid').refresh();
+
     }
-
-    function SetPageAndId() {
-        GetSelectedId();
-        OpenArticleModal();
-        LoadArticleInfo();
-    }
-
-    function GetSelectedId() {
-        var grid = $('#grdArticle').data('kendoGrid');
-        selectedId = 0;
-
-        grid.select().each(function () {
-            var dataItem = grid.dataItem($(this));
-            selectedId = dataItem.Id;
-        });
-    }
-
-    function SelectRowWithId() {
-        if ('@ViewData["SelectedId"]' != '' && '@ViewData["SelectedId"]' != '0') {
-            var id = '@ViewData["SelectedId"]';
-            var grid = $('#grdArticle').data('kendoGrid');
-
-            $.each(grid.tbody.find('tr'), function () {
-                var model = grid.dataItem($(this));
-                if (model.Id == id) {
-                    $('[data-uid=' + model.uid + ']').addClass('k-state-selected');
-                }
-            });
-        }
-    }
-
-    function onSuccessImage(e) {
-        $("#imgUrl").val(e.response.ImageUrl);
-
-        popupNotification = $("#popupNotification").data("kendoNotification");
-
-        popupNotification.show(e.response.Result);
-    }
-
-    function onSuccessFile(e) {
-        $("#fileName").val(e.response.FileName);
-
-        var popupNotification = $("#popupNotification").data("kendoNotification");
-        popupNotification.show("فایل با موفقیت بارگذاری شد.");
-    }
-
-
-    $(document).ready(function () {
-        var selectedId = 0;
-        var popupNotification = $("#popupNotification").data("kendoNotification");
-
-
-        ArticleWindow = $("#ArticlePopup").data("kendoWindow");
-        GetSelectedId();
-
-        var buttonSearch = $("#SearchButton").data("kendoButton");
-        buttonSearch.enable(true);
-    });
-
-    $("#SearchButton").click(function () {
-        var grid = $('#grdArticle').data('kendoGrid');
-        grid.dataSource.read();
-        grid.refresh();
-    });
 </script>

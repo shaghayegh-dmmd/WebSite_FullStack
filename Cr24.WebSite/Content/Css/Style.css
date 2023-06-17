@@ -58,7 +58,9 @@ em.k-dropzone-hint {
     display: none;
 }
 
-
+table {
+    height: 100%;
+}
     @media only screen and (min-width: 600px) {
      /*   .ken-Upload {
             width: 76% !important;

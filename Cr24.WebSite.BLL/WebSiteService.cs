@@ -246,6 +246,30 @@ namespace Cr24.WebSite.BLL
             }
 
         }
+
+        public static AttachmentModel GetArticleFileById(long id = 0)
+        {
+            try
+            {
+                using (var objContext = new WebEntity())
+            {
+                    Manager_Attachment fileInfo = objContext.Manager_Attachment.FirstOrDefault(o => o.Id == id);
+                if (fileInfo != null && fileInfo.FileContent != null) {
+                   return  new AttachmentModel
+                    {
+                        FileName = fileInfo.FileName,
+                        FileContent = fileInfo.FileContent
+                    };
+                    }
+                    else
+                    return null;
+            }
+               }
+            catch
+            {
+                return null;
+            }
+        }
         #endregion
     }
 }

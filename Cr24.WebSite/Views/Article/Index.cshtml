@@ -1,5 +1,5 @@
 ﻿@using Kendo.Mvc.UI
-@using Cr24.WebSite.DAL.Models,
+@using Cr24.WebSite.DAL.Models
 @model Cr24.WebSite.DAL.Models.ArticleModel
 
 @{
@@ -12,7 +12,7 @@
 
     @(Html.Kendo().Grid<ArticleModel>()
     .Name("ArticleGrid")
-    .HtmlAttributes(new { style = "height:250px;" }).Scrollable(a => a.Height("auto"))
+    .HtmlAttributes(new { style = "height:500px;" }).Scrollable(a => a.Height("auto"))
     .Columns(columns =>
     {
         columns.Bound(p => p.Id).Hidden();
@@ -21,9 +21,7 @@
         columns.Bound(p => p.Summary).Title("خلاصه").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
         columns.Bound(p => p.CreationDate).Title("تاریخ آخرین به روزرسانی").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
         columns.Bound(p => p.Category).Title("دسته").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
-        columns.Bound(u => u.FileId).Title("دانلود فایل").HeaderHtmlAttributes(new { style = "text-align: center;" }).ClientTemplate("#=GetImage(data.SystemFileType, data.Id, data.FileName)#").HtmlAttributes(new { style = "text-align: center; display: flex; justify-content: center; align-items: flex-start;" }).Width(90);
-
-
+        columns.Bound(u => u.FileId).Title("دانلود فایل").HeaderHtmlAttributes(new { style = "text-align: center;" }).ClientTemplate("#=GetImage(data.Id)#").HtmlAttributes(new { style = "text-align: center; display: flex; justify-content: center; align-items: flex-start;" }).Width(90);
 
     })
     .Selectable(s => s.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
@@ -49,6 +47,7 @@
     )
 
     )
+
     <div>
         <div class="k-rtl">
             @(Html.Kendo().Window().Modal(true)
@@ -72,8 +71,9 @@
 
     });
     //fileDownload------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-     function GetImage(image, id, fileName) {
-        if (image != null && image !== "") {
+    function GetImage(id) {
+
+        @*if (image != null && image !== "") {
             var returnString = "";
             dict.push({
                     key:   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -143,52 +143,52 @@
             case "svg":
             case "bmp":
 
-                returnString = '<img src="@Url.Content("~/Content/Images/image.png")" title=\"image\" height=\"20\" alt=\"image\"/> <a />';
+                returnString = '<img src="@Url.Content("~/Content/Images/image.png")" title=\"image\" height=\"50\" alt=\"image\"/> <a />';
                     break;
 
             case "mp4":
             case "mkv":
             case "mov":
 
-                returnString = '<img src="@Url.Content("~/Content/Images/multimedia.png")" title=\"image\" height=\"20\" alt=\"image\"/> <a />';
+                returnString = '<img src="@Url.Content("~/Content/Images/multimedia.png")" title=\"image\" height=\"50\" alt=\"image\"/> <a />';
                 break;
 
             case "docx":
             case "doc":
             case "txt":
 
-                returnString = '<img src="@Url.Content("~/Content/Images/microsoftword.png")" title=\"image\" height=\"20\" alt=\"image\"/>';
+                returnString = '<img src="@Url.Content("~/Content/Images/microsoftword.png")" title=\"image\" height=\"50\" alt=\"image\"/>';
                 break;
 
             case "xlsx":
             case "xls":
-                returnString = '<img src="@Url.Content("~/Content/Images/microsoftexcel.png")" title=\"image\" height=\"20\" alt=\"image\"/>';
+                returnString = '<img src="@Url.Content("~/Content/Images/microsoftexcel.png")" title=\"image\" height=\"50\" alt=\"image\"/>';
                 break;
 
             case "pdf":
-                    returnString = '<img src="@Url.Content("~/Content/Images/PDF.png")" title=\"image\" height=\"20\"  alt=\"image\"/>';
+                    returnString = '<img src="@Url.Content("~/Content/Images/PDF.png")" title=\"image\" height=\"50\"  alt=\"image\"/>';
                     break;
 
 
             case "rar":
-                    returnString = '<img src="@Url.Content("~/Content/Images/rar-file-format.png")" title=\"image\" height=\"20\"  alt=\"image\"/>';
+                    returnString = '<img src="@Url.Content("~/Content/Images/rar-file-format.png")" title=\"image\" height=\"50\"  alt=\"image\"/>';
                 break;
 
             case "mp3":
-                    returnString = '<img src="@Url.Content("~/Content/Images/voice-recorder.png")" title=\"image\" height=\"20\"  alt=\"image\"/>';
+                    returnString = '<img src="@Url.Content("~/Content/Images/voice-recorder.png")" title=\"image\" height=\"50\"  alt=\"image\"/>';
                 break;
 
             case "pptx":
             case "ppsx":
-                    returnString = '<img src="@Url.Content("~/Content/Images/power.png")" title=\"image\" height=\"20\"  alt=\"image\"/>';
+                    returnString = '<img src="@Url.Content("~/Content/Images/power.png")" title=\"image\" height=\"50\"  alt=\"image\"/>';
                 break;
 
-            }
-            returnString = returnString + '<a style="margin-right: 10px" href=/OfficialFile/GetAttachedFile?attachmentId=' + id + '>' + '<i class="fa fa-download" aria-hidden="true"></i></a>';
+            }*@
+        console.log(id);
+        returnString = '<img src="@Url.Content("~/Content/Images/power.png")" title=\"image\" height=\"50\"  alt=\"image\"/>';
+        returnString = returnString + '<a style="margin-right: 10px; height: 20px; width: 20px; background: red;" href=/Attachment/GetFileById?id=' + id + '>' + '<i class="fa fa-download" aria-hidden="true"></i></a>';
             return returnString;
-        }
 
-        return "";
     }
     //NewArticle----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

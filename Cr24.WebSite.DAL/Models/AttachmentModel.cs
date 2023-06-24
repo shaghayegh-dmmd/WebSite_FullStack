@@ -10,13 +10,12 @@ namespace Cr24.WebSite.DAL.Models
     {
         public long Id { get; set; }
 
-
         public byte[] FileContent { get; set; }
 
-       
         public string FileName { get; set; }
 
-       
         public DateTime? CreationDate { get; set; }
+
+        public string SystemFileType { get; set; }
     }
 }

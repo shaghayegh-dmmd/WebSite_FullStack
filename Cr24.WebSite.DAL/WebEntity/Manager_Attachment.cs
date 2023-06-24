@@ -17,7 +17,7 @@ namespace Cr24.WebSite.DAL.Models
             User_Resume = new HashSet<User_Resume>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
         public byte[] FileContent { get; set; }
@@ -26,6 +26,8 @@ namespace Cr24.WebSite.DAL.Models
         public string FileName { get; set; }
 
         public DateTime? CreationDate { get; set; }
+
+        public string SystemFileType { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Manager_User> Manager_User { get; set; }

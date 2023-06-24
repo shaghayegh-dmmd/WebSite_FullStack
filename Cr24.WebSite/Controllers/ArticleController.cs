@@ -116,11 +116,12 @@ namespace Cr24.WebSite.Controllers
             var attObj = new AttachmentModel
             {
                 FileName = att.FileName,
+                SystemFileType = att.ContentType,
                 CreationDate = DateTime.Now,
                 FileContent = content
             };
             var res = WebSiteService.CreatAttachment(attObj);
-            return attObj.Id;
+            return res;
         }
         public ActionResult Save(ArticleModel attachmentViewModel)
         {

@@ -229,8 +229,8 @@
   $(document).ready(function () {
 
         //Clear Kendo upload & URL
-        var upload = $("#image").data("kendoUpload");
-        upload.removeAllFiles();
+        //var upload = $("#image").data("kendoUpload");
+        //upload.removeAllFiles();
         $("#imgUrl").val("");
         $("#fileName").val("");
 
@@ -260,14 +260,6 @@
                 if (e.Result == true) {
                     tagWindow = $("#TagPopup").data("kendoWindow");
                     tagWindow.close();
-
-                    var articleTags = $("#TagIndexes").data("kendoMultiSelect");
-                    
-                    $.each(e.articleTags.split(","), function (i, e) {
-                        $("#TagIndexes option[value='" + e + "']").prop("selected", true);
-                    });
-                    articleTags.dataSource.read();
-                    articleTags.refresh();
 
                     $("#btnTag").prop("disabled", true);
                 }
@@ -305,7 +297,7 @@
             dataType: "json",
             success: function (res) {
                 console.log(res);
-               
+
                 if (res.IsValid) {
                     ShowDialog("توجه", " با موفقیت انجام شد", "DialogInformation", ["بستن"], null);
                     if (res.IsSaved) {
@@ -339,7 +331,7 @@
 
         ev.preventDefault();
         var data = $('#IdCreatArticle').serialize();
-
+        console.log(data);
         doSubmit("Save", "Article", data);
 
         Ref();

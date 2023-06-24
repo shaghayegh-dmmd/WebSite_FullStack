@@ -170,13 +170,14 @@ namespace Cr24.WebSite.BLL
 
 
         #region Attachment
-        public static bool CreatAttachment(AttachmentModel fileData)
+        public static long CreatAttachment(AttachmentModel fileData)
         {
             try
             {
                 var newFile = new Manager_Attachment
                 {
                     FileName = fileData.FileName,
+                    SystemFileType = fileData.SystemFileType,
                     CreationDate = DateTime.Now,
                     FileContent = fileData.FileContent
                    
@@ -187,11 +188,11 @@ namespace Cr24.WebSite.BLL
                     db.Manager_Attachment.Add(newFile);
                     db.SaveChanges();
                 }
-                return true;
+                return newFile.Id;
             }
-            catch
+            catch (Exception e)
             {
-                return false;
+                return -1;
             }
         }
 
@@ -247,7 +248,7 @@ namespace Cr24.WebSite.BLL
 
         }
 
-        public static AttachmentModel GetArticleFileById(long id = 0)
+        public static AttachmentModel GetFileById(long id = 0)
         {
             try
             {

@@ -197,7 +197,7 @@ namespace Cr24.WebSite.Controllers
                     }, JsonRequestBehavior.AllowGet);
             }
         }
-        public ActionResult EditeArticle(ArticleModel fileData)
+        public ActionResult EditArticle(ArticleModel fileData)
         {
             var res = WebSiteService.EditeArticle(fileData);
 

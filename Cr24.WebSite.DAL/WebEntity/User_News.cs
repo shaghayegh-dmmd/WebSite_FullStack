@@ -9,7 +9,7 @@ namespace Cr24.WebSite.DAL.Models
     [Table("[User.News]")]
     public partial class User_News
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
         [StringLength(500)]

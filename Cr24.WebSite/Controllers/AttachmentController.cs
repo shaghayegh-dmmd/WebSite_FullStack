@@ -14,6 +14,14 @@ namespace Cr24.WebSite.Controllers
 {
     public class AttachmentController : Controller
     {
+        public ActionResult Index()
+        {
+            return View();
+        }
+        public ActionResult AttachmentDetailInfo()
+        {
+            return View();
+        }
         public ActionResult GetFileById(long id)
         {
             var res = WebSiteService.GetFileById(id);

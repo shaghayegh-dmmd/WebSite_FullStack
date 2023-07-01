@@ -57,7 +57,7 @@
             <div id="ajaxLoading" class="transparentAjax">
             </div>
             @RenderBody()
-            @RenderSection("Scripts", false/*required*/)
+            @RenderSection("Scripts", false)
             @*@(Html.Kendo().Notification()
       .Name("notification-message1")
     )*@
@@ -97,7 +97,7 @@
 
         function ShowErrorMessage(txt) {
             msgNotification.show(txt, "error");
-    }
+        }
     /*loaderGif-------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
         function ShowProgressbar(second = 200) {

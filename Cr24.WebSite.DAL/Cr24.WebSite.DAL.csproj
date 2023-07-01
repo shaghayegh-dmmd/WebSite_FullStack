@@ -51,6 +51,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enum\ArticleCategory.cs" />
+    <Compile Include="Helper\DateHelper.cs" />
+    <Compile Include="Helper\Utility.cs" />
     <Compile Include="Models\ArticleModel.cs" />
     <Compile Include="Models\AttachmentModel.cs" />
     <Compile Include="Models\ContactUsModel.cs" />

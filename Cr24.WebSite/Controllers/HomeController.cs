@@ -56,7 +56,7 @@ namespace Cr24.WebSite.Controllers
                     ParentId = 1,
                     DisplayName = "فایل ها",
                     ControlName = "Attachment",
-                    ActionName = "AttachmentIndex",
+                    ActionName = "Index",
                     IconUrl = "/Content/Images/upload.svg"
 
                 });
@@ -67,7 +67,7 @@ namespace Cr24.WebSite.Controllers
                     ParentId = 1,
                     DisplayName = "اخبار",
                     ControlName = "News",
-                    ActionName = "NewsIndex",
+                    ActionName = "Index",
                     IconUrl = "/Content/Images/newspaper.svg"
                 });
             

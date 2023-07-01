@@ -1,0 +1,118 @@
+﻿@using Kendo.Mvc.UI
+@using Cr24.WebSite.DAL.Enum
+@using Cr24.WebSite.DAL.Models
+@model AttachmentModel
+
+@{
+    Layout = null;
+}
+
+<div id="AttachmentSection">
+    @using (Html.BeginForm("Save", "Attachment", FormMethod.Post, new { id = "IdCreateAttachment" }))
+    {
+        <span id="form-validation" style="width:0px">
+            @Html.ValidationSummary()
+        </span>
+        @Html.HiddenFor(m => m.Id)
+        <div class="container" style="margin-top: 5px;margin-right:5px;border: 1px gainsboro solid;" cellspacing="5px">
+
+            <div class="row">
+                <div class="col-md-1">
+                    @Html.Raw("تصویر")
+                </div>
+                <div class="ken-Upload col-md-9 text-right" style="">
+
+                    @(Html.Kendo().Upload()
+                          .Name("imageFile")
+                          .Multiple(false)
+                          .Messages(s =>
+                          {
+                              s.InvalidMaxFileSize("اندازه فایل خیلی بزرگ است،اندازه مجاز 150 مگابایت");
+                              s.InvalidFiles("نوع فایل انتخاب شده صحیح نمی باشد");
+                              s.StatusUploaded("بارگزاری فایل با موفقیت انجام شد");
+                              s.StatusUploading("در حال بارگزاری");
+                              s.StatusFailed("بارگزاری فایل با شکست مواجه شد");
+                          })
+                          .Validation(validation =>
+                          {
+                              validation.MaxFileSize(150000000);
+
+                              validation.AllowedExtensions(new string[] { "jpg", "jpeg", "png", "tiff", "tif", "pdf", "docx", "doc", "xlsx", "xls", "txt", "mp4", "mkv", "avi", "mov", "mp3", "wmv", "svg", "rar", "pptx", "ppsx" });
+                          })
+                          .Async(a => a
+                              .Save("Async_SaveImageNews", "Attachment")
+                              .Remove("Async_DeleteImageNews", "Attachment")
+                              .AutoUpload(true)
+                          )
+                                )
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2">
+                    <button type="submit" id="btnSave" class="k-button k-button-icontext" value="ذخیره">ذخیره</button>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="btnCancel" class="k-button k-button-icontext" value="انصراف">انصراف</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $("#btnCancel").click(function () {
+        AttachmentWindow.close();
+    });
+    function doSubmit(actionName, controllerName, data) {
+            var btn = $('#btnSave');
+
+        $.ajax({
+            url: '@Url.Content("~/")' + controllerName + '/' + actionName,
+            data: data,
+            type: 'POST',
+            dataType: "json",
+            success: function (res) {
+
+                if (res.IsValid) {
+                    ShowDialog("توجه", " با موفقیت انجام شد", "DialogInformation", ["بستن"], null);
+                    if (res.IsSaved) {
+                        window.ShowInfoMessage(res.Message);
+
+                    } else {
+                        window.ShowErrorMessage(res.Message);
+                        IsSavedEntity = false;
+                    }
+                } else {
+                    if (res.errors){
+                        showAllErrors(res.errors);
+                        IsSavedEntity = false;
+                    }
+                    else{
+                        window.ShowErrorMessage(res.Message);
+                        IsSavedEntity = false;
+                    }
+                }
+            },
+            error: function () {
+                HideProgressbar();
+                btn.prop("disabled", false);
+                IsSavedEntity = false;
+                window.ShowErrorMessage("خطا در ذخیره سازی");
+            }
+        });
+        Ref();
+    }
+
+    $('#btnSave').click(function (ev) {
+
+        ev.preventDefault();
+        var data = $('#IdCreateAttachment').serialize();
+        console.log(data);
+        doSubmit("Save", "Attachment", data);
+        Ref();
+
+    });
+</script>
+
+

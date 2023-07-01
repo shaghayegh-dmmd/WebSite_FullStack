@@ -133,6 +133,7 @@
     <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\AttachmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -977,6 +978,10 @@
     <Content Include="Scripts\kendo\messages\kendo.messages.fa-IR.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.fa-IR.min.js.map" />
     <Content Include="Scripts\kendo\cultures\kendo.culture.fa.min.js.map" />
+    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\NewsDetailInfo.cshtml" />
+    <Content Include="Views\Attachment\Index.cshtml" />
+    <Content Include="Views\Attachment\AttachmentDetailInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,81 @@
+﻿@using Kendo.Mvc.UI
+@using Cr24.WebSite.DAL.Models
+@model Cr24.WebSite.DAL.Models.NewsModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<section class="gridAll">
+
+    @(Html.Kendo().Grid<NewsModel>()
+    .Name("NewsGrid")
+    .HtmlAttributes(new { style = "height:500px;" }).Scrollable(a => a.Height("auto"))
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Hidden();
+        columns.Bound(p => p.Title).Title("عنوان").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.Reference).Title("لینک سایت منبع").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.CreationDateStr).Title("تاریخ آخرین به روزرسانی").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+
+    })
+    .Selectable(s => s.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+    .Sortable()
+    .Filterable()
+    .Pageable(pageable => pageable
+    .Refresh(true)
+    .ButtonCount(5)
+    )
+    .ToolBar(toolbar =>
+    {
+        toolbar.Custom()
+            .HtmlAttributes(new { id = "addEntity", style = "font-weight:bold;" })
+            .Name("New")
+            .Text("جدید")
+            .IconClass("k-icon k-i-add")
+            .Url("#");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Read(read => read.Action("GetAllNews", "News"))
+    .PageSize(15)
+    )
+    )
+    <div>
+        <div class="k-rtl">
+            @(Html.Kendo().Window().Modal(true)
+                          .Name("NewsPopup")
+                          .Visible(false)
+                          .Actions(action => action.Close())
+                          .Title("جزئیات اخبار")
+                          .Content(@<div id="NewsModal">
+                                   </div>)
+                          .Width(700))
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+
+        NewsWindow = $("#NewsPopup").data("kendoWindow");
+
+    });
+    function OpenNewsModal() {
+        NewsWindow.open();
+        NewsWindow.center();
+      };
+
+    function LoadNewsInfo() {
+
+        $("#NewsModal").load("@Url.Action("NewsDetailInfo", "News")", function () { });
+
+    };
+
+    $("#addEntity").click(function () {
+
+        OpenNewsModal();
+        LoadNewsInfo();
+    });
+</script>
+
+

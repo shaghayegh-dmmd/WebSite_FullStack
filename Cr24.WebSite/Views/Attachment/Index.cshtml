@@ -1,0 +1,81 @@
+﻿@using Kendo.Mvc.UI
+@using Cr24.WebSite.DAL.Models
+@model Cr24.WebSite.DAL.Models.AttachmentModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+<section class="gridAll">
+
+    @(Html.Kendo().Grid<AttachmentModel>()
+    .Name("AttachmentGrid")
+    .HtmlAttributes(new { style = "height:500px;" }).Scrollable(a => a.Height("auto"))
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Hidden();
+        columns.Bound(p => p.FileName).Title("نام فایل").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.SystemFileType).Title("نوع فایل").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.CreationDateStr).Title("تاریخ آپلود").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+
+    })
+    .Selectable(s => s.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+    .Sortable()
+    .Filterable()
+    .Pageable(pageable => pageable
+    .Refresh(true)
+    .ButtonCount(5)
+    )
+    .ToolBar(toolbar =>
+    {
+        toolbar.Custom()
+            .HtmlAttributes(new { id = "addEntity", style = "font-weight:bold;" })
+            .Name("New")
+            .Text("جدید")
+            .IconClass("k-icon k-i-add")
+            .Url("#");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Read(read => read.Action("GetAllAttachment", "Attachment"))
+    .PageSize(15)
+    )
+    )
+    <div>
+        <div class="k-rtl">
+            @(Html.Kendo().Window().Modal(true)
+                          .Name("AttachmentPopup")
+                          .Visible(false)
+                          .Actions(action => action.Close())
+                          .Title("جزئیات فایل ها")
+                          .Content(@<div id="AttachmentModal">
+                                   </div>)
+                          .Width(700))
+        </div>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+
+       AttachmentWindow = $("#AttachmentPopup").data("kendoWindow");
+
+    });
+      function OpenAttachmentModal() {
+        AttachmentWindow.open();
+        AttachmentWindow.center();
+      };
+
+    function LoadAttachmentInfo() {
+
+        $("#AttachmentModal").load("@Url.Action("AttachmentDetailInfo", "Attachment")", function () { });
+
+    };
+
+    $("#addEntity").click(function () {
+
+        OpenAttachmentModal();
+        LoadAttachmentInfo();
+    });
+</script>
+
+

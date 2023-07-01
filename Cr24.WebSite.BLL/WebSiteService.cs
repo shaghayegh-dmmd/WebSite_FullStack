@@ -77,6 +77,7 @@ namespace Cr24.WebSite.BLL
                 {
                     Title = o.Title,
                     Description = o.Description,
+                    CreationDate = o.CreationDate,
                     Category = o.Category,
                     Summary = o.Summary,
                     FileId = o.FileId,
@@ -215,6 +216,7 @@ namespace Cr24.WebSite.BLL
                 return false;
             }
         }
+
         public List<AttachmentModel> GetAllAttachment()
         {
 

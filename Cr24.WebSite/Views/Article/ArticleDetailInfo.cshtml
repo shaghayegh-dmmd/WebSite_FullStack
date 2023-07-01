@@ -14,6 +14,7 @@
         </span>
 
         @Html.HiddenFor(m => m.Id)
+        @Html.HiddenFor(m => m.TagId)
         <div class="container" style="margin-top: 5px;margin-right:5px;border: 1px gainsboro solid;" cellspacing="5px">
 
             <div class="row"></div>
@@ -49,7 +50,7 @@
                 <div class="col-md-9">
                     <div class="input-group">
                         @*<span class="input-group-addon" id="basic-addon1">آدرس تصویر بارگذاری شده</span>
-                        <input id="imgUrl" type="text" readonly class="form-control">*@
+                            <input id="imgUrl" type="text" readonly class="form-control">*@
                     </div>
                 </div>
             </div>
@@ -163,7 +164,7 @@
                             .Validation(validation =>
                             {
                                 validation.MaxFileSize(15728640);
-                                validation.AllowedExtensions(new string[] { "pdf"});
+                                validation.AllowedExtensions(new string[] { "pdf", "jpg", "jpeg", "png" });
                             })
                             .Async(a => a
                                 .Save("Async_SaveFile", "Article")
@@ -226,11 +227,11 @@
 </div>
 
 <script>
+
+
   $(document).ready(function () {
 
-        //Clear Kendo upload & URL
-        //var upload = $("#image").data("kendoUpload");
-        //upload.removeAllFiles();
+        
         $("#imgUrl").val("");
         $("#fileName").val("");
 
@@ -260,6 +261,7 @@
                 if (e.Result == true) {
                     tagWindow = $("#TagPopup").data("kendoWindow");
                     tagWindow.close();
+                   
 
                     $("#btnTag").prop("disabled", true);
                 }
@@ -288,8 +290,7 @@
 
         function doSubmit(actionName, controllerName, data) {
             var btn = $('#btnSave');
-        //btn.prop("disabled", true);
-        //ShowProgressbar();
+       
         $.ajax({
             url: '@Url.Content("~/")' + controllerName + '/' + actionName,
             data: data,
@@ -297,6 +298,11 @@
             dataType: "json",
             success: function (res) {
                 console.log(res);
+
+                var Tagid = $("#TagIndexes").data("kendoMultiSelect");
+                Tagid.dataSource.read();
+                Tagid.refresh();
+                console.log(Tagid);
 
                 if (res.IsValid) {
                     ShowDialog("توجه", " با موفقیت انجام شد", "DialogInformation", ["بستن"], null);
@@ -327,6 +333,7 @@
         });
         Ref();
     }
+
     $('#btnSave').click(function (ev) {
 
         ev.preventDefault();

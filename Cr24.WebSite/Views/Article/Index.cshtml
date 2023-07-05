@@ -17,7 +17,6 @@
     {
         columns.Bound(p => p.Id).Hidden();
         columns.Bound(p => p.Title).Title("عنوان").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
-
         columns.Bound(p => p.Summary).Title("خلاصه").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
         columns.Bound(p => p.CreationDateStr).Title("تاریخ آخرین به روزرسانی").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
         columns.Bound(p => p.Category).Title("دسته").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);

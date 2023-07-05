@@ -49,6 +49,7 @@ namespace Cr24.WebSite.DAL.Models
                 }
             }
         }
+
         public string ImageId { get; set; }
     }
 }

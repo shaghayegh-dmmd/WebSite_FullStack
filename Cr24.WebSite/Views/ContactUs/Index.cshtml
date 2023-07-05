@@ -1,0 +1,77 @@
+﻿@using Kendo.Mvc.UI
+@using Cr24.WebSite.DAL.Models
+@model Cr24.WebSite.DAL.Models.ContactUsModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<section class="gridAll">
+
+    @(Html.Kendo().Grid<ContactUsModel>()
+    .Name("ContactUsGrid")
+    .HtmlAttributes(new { style = "height:500px;" }).Scrollable(a => a.Height("auto"))
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Id).Hidden();
+        columns.Bound(p => p.Email).Title("ایمیل").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.UserName).Title("نام").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.TextContent).Title("محتوا").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+        columns.Bound(p => p.Subject).Title("موضوع").HeaderHtmlAttributes(new { style = "text-align: center;" }).HtmlAttributes(new { style = "text-align: center;" }).Width(130);
+
+    })
+    .Selectable(s => s.Mode(GridSelectionMode.Multiple).Type(GridSelectionType.Row))
+    .Sortable()
+    .Filterable()
+    .Pageable(pageable => pageable
+    .Refresh(true)
+    .ButtonCount(5)
+    )
+    .ToolBar(toolbar =>
+    {
+        toolbar.Custom()
+            .HtmlAttributes(new { id = "addEntity", style = "font-weight:bold;" })
+            .Name("New")
+            .Text("جدید")
+            .IconClass("k-icon k-i-add")
+            .Url("#");
+    })
+    .DataSource(dataSource => dataSource
+    .Ajax()
+    .Read(read => read.Action("GetAllContactUs", "ContactUs"))
+    .PageSize(15)
+    )
+    )
+
+</section>
+
+
+<script>
+
+    $(document).ready(function () {
+
+        ContactUsWindow = $("#ContactUsPopup").data("kendoWindow");
+
+    });
+
+    function OpenContactUsModel() {
+        ContactUsWindow.open();
+        ContactUsWindow.center();
+      };
+
+    function LoadContactUsInfo() {
+
+        $("#ContactUsModal").load("@Url.Action("ContactUsDetailInfo", "ContactUs")", function () { });
+
+    };
+
+    $("#addEntity").click(function () {
+
+        OpenContactUsModel();
+        LoadContactUsInfo();
+    });
+</script>
+
+
+

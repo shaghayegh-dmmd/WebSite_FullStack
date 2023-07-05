@@ -20,10 +20,7 @@ namespace Cr24.WebSite.Controllers
 
         public ActionResult LoadMenu()
         {
-
-
             MenuModel menuModel = CreateActionMenu();
-
 
             return PartialView("_PartialMenu", menuModel);
         }
@@ -70,7 +67,27 @@ namespace Cr24.WebSite.Controllers
                     ActionName = "Index",
                     IconUrl = "/Content/Images/newspaper.svg"
                 });
-            
+
+            menuModel.ChildList.Add(new MenuModel()
+            {
+                Id = 4,
+                ParentId = 1,
+                DisplayName = "فرم تماس با ما",
+                ControlName = "ContactUs",
+                ActionName = "GetAllContactUs",
+                IconUrl = "/Content/Images/newspaper.svg"
+            });
+
+            menuModel.ChildList.Add(new MenuModel()
+            {
+                Id = 4,
+                ParentId = 1,
+                DisplayName = "فرم رزومه",
+                ControlName = "Resume",
+                ActionName = "ResumeDetailInfo",
+                IconUrl = "/Content/Images/newspaper.svg"
+            });
+
             return menuModel;
         }
 

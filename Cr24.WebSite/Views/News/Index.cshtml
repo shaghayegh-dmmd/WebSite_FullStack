@@ -6,6 +6,7 @@
     ViewBag.Title = "Index";
     Layout = null;
 }
+
 <section class="gridAll">
 
     @(Html.Kendo().Grid<NewsModel>()
@@ -55,11 +56,13 @@
     </div>
 </section>
 <script>
+
     $(document).ready(function () {
 
         NewsWindow = $("#NewsPopup").data("kendoWindow");
 
     });
+
     function OpenNewsModal() {
         NewsWindow.open();
         NewsWindow.center();
@@ -75,6 +78,7 @@
 
         OpenNewsModal();
         LoadNewsInfo();
+
     });
 </script>
 

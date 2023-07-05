@@ -28,5 +28,11 @@ namespace Cr24.WebSite.Controllers
 
             return Json(res, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetAllAttachment([DataSourceRequest] DataSourceRequest request)
+        {
+            var res = AttachmentService.GetAllAttachment();
+
+            return Json(res.ToDataSourceResult(request));
+        }
     }
 }
